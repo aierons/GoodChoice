@@ -1,5 +1,5 @@
 # CS3520-2017FA-PROJ
 
-Jennifer Ai
-Ben Fickes
-Marcos Lopez
+Jennifer Ai <br />
+Ben Fickes <br />
+Marcos Lopez <br />
