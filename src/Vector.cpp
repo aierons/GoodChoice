@@ -60,18 +60,17 @@ bool Vector::operator==(const Vector& v1) {
 
 bool Vector::operator!=(const Vector& v1) {
   return abs(m_x - v1.m_x) >= 0.01
-    && abs(m_y - v1.m_y) >= 0.01;
+      || abs(m_y - v1.m_y) >= 0.01;
 }
 
 Vector& Vector::operator-() {
-  m_x = -m_x;
-  m_y = -m_y;
-  return *this;
+  Vector * result = new Vector(-m_x, -m_y);
+  return *result;
 }
 
 Vector& Vector::operator+(const Vector& v1) {
-  Vector result(m_x + v1.m_x, m_y + v1.m_y);
-  return result;
+  Vector * result = new Vector(m_x + v1.m_x, m_y + v1.m_y);
+  return * result;
 }
 
 Vector& Vector::operator+=(const Vector& v1) {
@@ -81,8 +80,8 @@ Vector& Vector::operator+=(const Vector& v1) {
 }
 
 Vector& Vector::operator-(const Vector& v1) {
-  Vector result(m_x - v1.m_x, m_y - v1.m_y);
-  return result;
+  Vector * result = new Vector(m_x - v1.m_x, m_y - v1.m_y);
+  return * result;
 }
 
 Vector& Vector::operator-=(const Vector& v1) {
@@ -92,13 +91,13 @@ Vector& Vector::operator-=(const Vector& v1) {
 }
 
 Vector& Vector::operator*(double d) {
-  Vector result(m_x * d, m_y * d);
-  return result;
+  Vector * result = new Vector(m_x * d, m_y * d);
+  return * result;
 }
 
 Vector& operator*(double d, const Vector& v) {
-  Vector result(v.m_x * d, v.m_y * d);
-  return result;
+  Vector * result = new Vector(v.m_x * d, v.m_y * d);
+  return * result;
 }
 
 Vector& Vector::operator*=(double d) {
@@ -109,8 +108,8 @@ Vector& Vector::operator*=(double d) {
 
 Vector& Vector::operator/(double d) {
   assert(d != 0);
-  Vector result(m_x / d, m_y / d);
-  return result;
+  Vector * result = new Vector(m_x / d, m_y / d);
+  return * result;
 }
 
 Vector& Vector::operator/=(double d) {
