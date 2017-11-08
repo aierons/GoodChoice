@@ -3,7 +3,8 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "KeysPressed.hpp"
-#include <iostream>
+#include "Platform.hpp"
+#include <vector>
 
 
 class Game {
@@ -25,6 +26,7 @@ class Game {
     bool isRunning;
     SDL_Window * window;
     SDL_Renderer * renderer;
+	std::vector<Platform> platforms;
 };
 
 #endif /* Game_hpp */

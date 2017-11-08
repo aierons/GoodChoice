@@ -10,3 +10,7 @@ Platform::Platform(Vector start_v, Vector end_v, bool vis) {
 }
 
 Platform::Platform(Vector start_v, Vector end_v) : Platform(start_v, end_v, true) { }
+
+bool Platform::collides(Vector v) {
+	return ((v.getY() == start_y && v.getX() >= start_x && v.getX() <= end_x) || (v.getY() == start_y && v.getX() <= start_x && v.getX() >= end_x)); // for horizontal platforms
+}

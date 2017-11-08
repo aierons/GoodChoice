@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "TextureManager.hpp"
 #include "Player.hpp"
+#include <vector>
 
 SDL_Event Game::event;
 Player * player;
@@ -37,6 +38,7 @@ void Game::init(const char * title, int xpos, int ypos, int width, int height, b
     }
 
     isRunning = true;
+	platforms(new Platform(Vector(100, 100), Vector(150, 100));
   } else {
     isRunning = false;
   }
@@ -60,7 +62,8 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-  player->update(keys);
+	player->isColliding(platforms);
+	player->update(keys);
 }
 
 void Game::render() {

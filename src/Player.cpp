@@ -1,9 +1,11 @@
 #include "Player.hpp"
+#include <vector>
 
 Player::Player() {
   position = Vector(250, 50);
   velocity = Vector(0, 0);
   acceleration = Vector(0, 0);
+  colliding = false;
 }
 
 void Player::jump() {
@@ -28,7 +30,7 @@ void Player::updateVelocity() {
 }
 
 void Player::updateAcceleration() {
-  if (isFalling()) {
+  if (isFalling() && !(colliding && acceleration[1] <= 0)) {
     acceleration[1] -= .2;
   } else {
     acceleration[1] = 0;
@@ -37,6 +39,15 @@ void Player::updateAcceleration() {
 
 bool Player::isFalling() {
   return position.getY() > 50;
+}
+
+void Player::isColliding(std::vector<Platform> platforms) {
+	for (Platform p : platforms) {
+		if (p.collides(position)) {
+			colliding = true;
+		}
+	}
+	colliding = false;
 }
 
 void Player::update(KeysPressed * keys) {
