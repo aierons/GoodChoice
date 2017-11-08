@@ -1,7 +1,10 @@
 #ifndef Game_hpp
 #define Game_hpp
 #include "SDL.h"
+#include "SDL_image.h"
+#include "KeysPressed.hpp"
 #include <iostream>
+
 
 class Game {
   public:
@@ -15,6 +18,8 @@ class Game {
     void clean();
 
     bool running();
+
+    static SDL_Event event;
 
   private:
     bool isRunning;

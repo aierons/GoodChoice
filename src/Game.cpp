@@ -1,7 +1,14 @@
 #include "Game.hpp"
+#include "TextureManager.hpp"
+#include "Player.hpp"
+
+SDL_Event Game::event;
+Player * player;
+KeysPressed * keys;
 
 Game::Game() {
-
+  player = new Player();
+  keys = new KeysPressed();
 }
 
 Game::~Game() {
@@ -36,28 +43,30 @@ void Game::init(const char * title, int xpos, int ypos, int width, int height, b
 }
 
 void Game::handleEvents() {
-  SDL_Event event;
   SDL_PollEvent(&event);
 
   switch (event.type) {
-    case SDL_QUIT:
-      isRunning = false;
-      break;
-    case SDLK_0:
-      isRunning = false;
-      break;
-    default:
-      break;
+     case SDL_QUIT:
+       isRunning = false;
+       break;
+     case SDL_KEYDOWN:
+       keys->addKeyCode(event.key.keysym.sym);
+       break;
+     case SDL_KEYUP:
+       keys->removeKeyCode(event.key.keysym.sym);
+     default:
+       break;
   }
 }
 
 void Game::update() {
-
+  player->update(keys);
 }
 
 void Game::render() {
   SDL_RenderClear(renderer);
-  // Add stuff to render;
+  player->render(renderer);
+  //SDL_RenderCopy(renderer, playerTex, NULL, &destRect);
   SDL_RenderPresent(renderer);
 }
 
