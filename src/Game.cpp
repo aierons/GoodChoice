@@ -9,19 +9,31 @@ Player * player;
 vector<Platform> platforms;
 KeysPressed * keys;
 
+/*
+ * This constructor will initialize the Player, KeyPressed, and platforms
+ */
 Game::Game() {
   player = new Player();
   keys = new KeysPressed();
   platforms = vector<Platform>();
 
+  platforms.push_back(Platform(Vector(50, 20), Vector(550, 70)));
   platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
   platforms.push_back(Platform(Vector(400, 250), Vector(500, 300)));
+  platforms.push_back(Platform(Vector(100, 375), Vector(270, 400)));
 }
 
+/*
+ * This destructor will delete the pointers to player and keys;
+ */
 Game::~Game() {
-
+  delete player;
+  delete keys;
 }
 
+/*
+ * Initializes the game by creating a window and renderer.
+ */
 void Game::init(const char * title, int xpos, int ypos, int width, int height, bool fullscreen) {
 
   int flags = 0;
@@ -49,6 +61,9 @@ void Game::init(const char * title, int xpos, int ypos, int width, int height, b
   }
 }
 
+/*
+ * Handles user input such as keyboard, mouse, and quitting
+ */
 void Game::handleEvents() {
   SDL_PollEvent(&event);
 
@@ -66,10 +81,16 @@ void Game::handleEvents() {
   }
 }
 
+/*
+ * Updates the state of the game.
+ */
 void Game::update() {
   player->update(keys, platforms);
 }
 
+/*
+ * Renders all given game objects
+ */
 void Game::render() {
   SDL_RenderClear(renderer);
   player->render(renderer);
@@ -81,6 +102,9 @@ void Game::render() {
   SDL_RenderPresent(renderer);
 }
 
+/*
+ * Cleans up the game by destroying the window and renderer.
+ */
 void Game::clean() {
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
@@ -88,6 +112,9 @@ void Game::clean() {
   std::cout << "Game Cleaned!" << std::endl;
 }
 
+/*
+ * Getter for isRunning, which determines if the game is running.
+ */
 bool Game::running() {
   return isRunning;
 }

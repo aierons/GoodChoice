@@ -1,5 +1,10 @@
 #include "Platform.hpp"
 
+/*
+ * Constructor for platform that initializes the bottom-left and
+ * top-right corners along with a boolean that determines if it is
+ * invisible.
+ */
 Platform::Platform(Vector start_v, Vector end_v, bool vis) {
   start_x = start_v.getX();
   start_y = start_v.getY();
@@ -8,8 +13,14 @@ Platform::Platform(Vector start_v, Vector end_v, bool vis) {
   visible = vis;
 }
 
+/*
+ * Overloaded constructor that automatically sets visible to true.
+ */
 Platform::Platform(Vector start_v, Vector end_v) : Platform(start_v, end_v, true) { }
 
+/*
+ * Checks if the given vector intersects with the platform
+ */
 bool Platform::collides(Vector v) {
   return v.getX() >= start_x 
       && v.getY() >= start_y
@@ -17,6 +28,9 @@ bool Platform::collides(Vector v) {
       && v.getY() <= end_y;
 }
 
+/*
+ * Renders the platform onto the renderer
+ */
 void Platform::render(SDL_Renderer * renderer) {
   SDL_Texture * platformTex;
   SDL_Rect destRect;
@@ -31,6 +45,9 @@ void Platform::render(SDL_Renderer * renderer) {
   SDL_RenderCopy(renderer, platformTex, NULL, &destRect);
 }
 
+/*
+ * Getter for end_y
+ */
 int Platform::getEndY() {
   return end_y;
 }

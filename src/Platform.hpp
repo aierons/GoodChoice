@@ -5,6 +5,10 @@
 #include "SDL_image.h"
 #include "TextureManager.hpp"
 
+/*
+ * Represents a platform that is given the x and y coordinates of the bottom-left
+ * corner and the top-right corner.
+ */
 class Platform {
 public:
   Platform(Vector start_v, Vector end_v);

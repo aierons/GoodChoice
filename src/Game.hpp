@@ -5,12 +5,14 @@
 #include "KeysPressed.hpp"
 #include <iostream>
 
-
+/*
+ * Represents the state of the Game. This class will constantly handle user input,
+ * update the state of the game, and render all images in the game. 
+ */
 class Game {
   public:
     Game();
     ~Game();
-
     void init(const char * title, int xpos, int ypos, int width, int height, bool fullscreen);
     void handleEvents();
     void update();
@@ -27,4 +29,4 @@ class Game {
     SDL_Renderer * renderer;
 };
 
-#endif /* Game_hpp */
+#endif

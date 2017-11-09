@@ -7,6 +7,10 @@
 #include "KeysPressed.hpp"
 #include "Platform.hpp"
 
+/*
+ * Represents the player that is given its current position, velocity, and
+ * acceleration.
+ */
 class Player {
   public:
     Player();

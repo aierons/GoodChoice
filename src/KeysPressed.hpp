@@ -4,6 +4,9 @@
 #include "SDL.h"
 using namespace std;
 
+/*
+ * This class will keep and update a list of SDL key codes
+ */
 class KeysPressed {
   public:
     KeysPressed();
