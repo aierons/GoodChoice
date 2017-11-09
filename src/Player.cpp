@@ -1,11 +1,10 @@
 #include "Player.hpp"
-#include <vector>
 
 Player::Player() {
-  position = Vector(250, 50);
+  position = Vector(300, 250);
   velocity = Vector(0, 0);
   acceleration = Vector(0, 0);
-  colliding = false;
+  isFalling = false;
 }
 
 void Player::jump() {
@@ -15,43 +14,38 @@ void Player::jump() {
 
 void Player::updatePosition() {
   position += velocity;
-
-  if (position.getY() < 50) {
-    position[1] = 50;
-  }
 }
 
 void Player::updateVelocity() {
   velocity += acceleration;
-
-  if (!isFalling()) {
-    velocity[1] = 0;
-  }
 }
 
 void Player::updateAcceleration() {
-  if (isFalling() && !(colliding && acceleration[1] <= 0)) {
+  if (isFalling) {
     acceleration[1] -= .2;
   } else {
     acceleration[1] = 0;
   }
 }
 
-bool Player::isFalling() {
-  return position.getY() > 50;
+bool Player::isColliding(Platform platform) {
+  return platform.collides(position);
 }
 
-void Player::isColliding(std::vector<Platform> platforms) {
-	for (Platform p : platforms) {
-		if (p.collides(position)) {
-			colliding = true;
-		}
-	}
-	colliding = false;
-}
-
-void Player::update(KeysPressed * keys) {
+void Player::checkColliding(vector<Platform> platforms) {
+  bool collide = false;
+  for (int i = 0; !collide && i < platforms.size(); i++) {
+    if (isColliding(platforms[i])) {
+      collide = true;
+      position.setY(platforms[i].getEndY());
+    }
+  }
   
+  isFalling = !collide;
+}
+
+void Player::update(KeysPressed * keys, vector<Platform> platforms) {
+
   if (!keys->hasKeyCode(SDLK_a) && !keys->hasKeyCode(SDLK_d)) {
     idle();
   } else {
@@ -65,7 +59,8 @@ void Player::update(KeysPressed * keys) {
   }
 
   if (keys->hasKeyCode(SDLK_w)) {
-    if (!isFalling()) {
+    if (!isFalling) {
+      isFalling = true;
       jump();
     }
   }
@@ -74,10 +69,24 @@ void Player::update(KeysPressed * keys) {
   updateVelocity();
   updateAcceleration();
 
+  if (position.getY() > 50) {
+    isFalling = true;
+  }
+  else {
+    isFalling = false;
+  }
+
+  checkColliding(platforms);
+
+  if (!isFalling) {
+    acceleration.setY(0);
+    velocity.setY(0);
+  }
+
   cout << "position() == " << position << endl;
   cout << "velocity() == " << velocity << endl;
   cout << "acceleration() == " << acceleration << endl;
-  cout << "isFalling() == " << isFalling() << endl;
+  cout << "isFalling() == " << isFalling << endl;
   cout << endl;
 }
 
@@ -95,7 +104,7 @@ void Player::idle() {
 
 void Player::render(SDL_Renderer * renderer) {
   SDL_Texture * playerTex;
-  SDL_Rect srcRect, destRect;
+  SDL_Rect destRect;
 
   playerTex = TextureManager::loadTexture("res/player.png", renderer);
   destRect.w = 23;

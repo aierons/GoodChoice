@@ -1,15 +1,21 @@
 #include "Game.hpp"
 #include "TextureManager.hpp"
 #include "Player.hpp"
+#include "Platform.hpp"
 #include <vector>
 
 SDL_Event Game::event;
 Player * player;
+vector<Platform> platforms;
 KeysPressed * keys;
 
 Game::Game() {
   player = new Player();
   keys = new KeysPressed();
+  platforms = vector<Platform>();
+
+  platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
+  platforms.push_back(Platform(Vector(400, 250), Vector(500, 300)));
 }
 
 Game::~Game() {
@@ -38,7 +44,6 @@ void Game::init(const char * title, int xpos, int ypos, int width, int height, b
     }
 
     isRunning = true;
-	platforms(new Platform(Vector(100, 100), Vector(150, 100));
   } else {
     isRunning = false;
   }
@@ -62,14 +67,17 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	player->isColliding(platforms);
-	player->update(keys);
+  player->update(keys, platforms);
 }
 
 void Game::render() {
   SDL_RenderClear(renderer);
   player->render(renderer);
-  //SDL_RenderCopy(renderer, playerTex, NULL, &destRect);
+
+  for (Platform platform : platforms) {
+    platform.render(renderer);
+  }
+
   SDL_RenderPresent(renderer);
 }
 

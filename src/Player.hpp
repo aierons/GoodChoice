@@ -5,7 +5,7 @@
 #include "SDL_image.h"
 #include "TextureManager.hpp"
 #include "KeysPressed.hpp"
-#include <vector>
+#include "Platform.hpp"
 
 class Player {
   public:
@@ -14,9 +14,9 @@ class Player {
     void updatePosition();
     void updateVelocity();
     void updateAcceleration();
-    void update(KeysPressed * keys);
-    bool isFalling();
-	void isColliding(std::vector<Platform>);
+    bool isColliding(Platform platform);
+    void checkColliding(vector<Platform> platforms);
+    void update(KeysPressed * keys, vector<Platform> platforms);
 
     void moveLeft();
     void moveRight();
@@ -28,7 +28,7 @@ class Player {
     Vector position;
     Vector velocity;
     Vector acceleration;
-	bool colliding;
+    bool isFalling;
 };
 
 #endif
