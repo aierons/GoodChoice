@@ -17,7 +17,7 @@ Game::Game() {
   keys = new KeysPressed();
   platforms = vector<Platform>();
 
-  platforms.push_back(Platform(Vector(50, 20), Vector(550, 70)));
+  platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
   platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
   platforms.push_back(Platform(Vector(400, 250), Vector(500, 300)));
   platforms.push_back(Platform(Vector(100, 375), Vector(270, 400)));
