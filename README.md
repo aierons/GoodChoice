@@ -3,3 +3,5 @@
 Jennifer Ai <br />
 Ben Fickes <br />
 Marcos Lopez <br />
+Wesley Jiang <br />
+Chris Risley
