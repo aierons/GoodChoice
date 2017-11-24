@@ -2,6 +2,7 @@
 #ifndef Bullet_hpp
 #define Bullet_hpp
 #include "Vector.hpp"
+#include "Platform.hpp"
 #include "SDL.h"
 #include "SDL_image.h"
 

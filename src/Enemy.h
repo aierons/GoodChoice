@@ -5,7 +5,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 
-public class Enemy { //maybe this will be abstract if there are multiple types of enemies
+class Enemy { //maybe this will be abstract if there are multiple types of enemies
 public:
 	Enemy();//idk if we want this
 	Enemy(Vector pos);
