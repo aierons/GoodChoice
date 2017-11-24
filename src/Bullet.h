@@ -8,14 +8,13 @@
 
 class Bullet { //abstract class Bullet - will be extended by each type of bullet
 public:
-	Bullet();
-	virtual ~Bullet() = 0;
+	Bullet(Vector pos, Vector vel);
 	void updatePosition();
 	void updateLifetime();
-	bool collidesWithPlatform(Platform p); //alternatively could take in list of platforms
+	virtual bool collidesWithPlatform(Platform p) = 0; //alternatively could take in list of platforms
 private:
 	int lifetime;
-	Vector postion;
+	Vector position;
 	Vector velocity;
 };
 #endif
