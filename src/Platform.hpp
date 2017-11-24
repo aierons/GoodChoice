@@ -18,6 +18,10 @@ public:
   void render(SDL_Renderer * renderer);
 
   int getEndY();
+
+  bool isVisible();
+
+  void show();
 private:
   int start_x; //lower or left end
   int start_y; //lower or left end

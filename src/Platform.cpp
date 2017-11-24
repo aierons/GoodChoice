@@ -51,3 +51,11 @@ void Platform::render(SDL_Renderer * renderer) {
 int Platform::getEndY() {
   return end_y;
 }
+
+bool Platform::isVisible() {
+	return visible;
+}
+
+void Platform::show() {
+	visible = true;
+}
