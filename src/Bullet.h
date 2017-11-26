@@ -11,10 +11,14 @@ public:
 	Bullet(Vector pos, Vector vel);
 	void updatePosition();
 	void updateLifetime();
-	virtual bool collidesWithPlatform(Platform p) = 0; //alternatively could take in list of platforms
-private:
+	bool done();
+	virtual bool collidesWithPlatform(Platform& p) = 0; //alternatively could take in list of platforms
+	virtual void render(SDL_Renderer* renderer) = 0;
+protected:
 	int lifetime;
 	Vector position;
 	Vector velocity;
+	int width = 7;
+	int height = 7;
 };
 #endif

@@ -4,13 +4,11 @@
 
 #include "Bullet.h"
 
-class PlatformBullet : Bullet {
+class PlatformBullet : public Bullet {
 public:
-	virtual bool collidesWithPlatform(Platform p); //alternatively could take in list of platforms
-private:
-	int lifetime;
-	Vector position;
-	Vector velocity;
+	PlatformBullet(Vector pos, Vector vel);
+	virtual bool collidesWithPlatform(Platform& p); //alternatively could take in list of platforms
+	virtual void render(SDL_Renderer* renderer);
 };
 
 #endif

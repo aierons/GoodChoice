@@ -2,11 +2,14 @@
 #include "TextureManager.hpp"
 #include "Player.hpp"
 #include "Platform.hpp"
+#include "Bullet.h"
+#include "PlatformBullet.h"
 #include <vector>
 
 SDL_Event Game::event;
 Player * player;
 vector<Platform> platforms;
+vector<PlatformBullet> pBullets;
 KeysPressed * keys;
 
 /*
@@ -16,11 +19,18 @@ Game::Game() {
   player = new Player();
   keys = new KeysPressed();
   platforms = vector<Platform>();
+  pBullets = vector<PlatformBullet>();
+
+  //testing platform bullet
+  pBullets.push_back(PlatformBullet(Vector(200, 200), Vector(5, 0)));
 
   platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
   platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
   platforms.push_back(Platform(Vector(400, 250), Vector(500, 300)));
   platforms.push_back(Platform(Vector(100, 375), Vector(270, 400)));
+
+  //testing invisible platform
+  platforms.push_back(Platform(Vector(400, 200), Vector(450, 205), false));
 }
 
 /*
@@ -86,6 +96,21 @@ void Game::handleEvents() {
  */
 void Game::update() {
   player->update(keys, platforms);
+  for (int count = 0; count < pBullets.size(); count++) {
+		  pBullets[count].updateLifetime();
+		  pBullets[count].updatePosition();
+		  bool exists = true;
+		  if (pBullets[count].done()) {
+			  pBullets.erase(pBullets.begin() + count);
+			  exists = false;
+		  }
+		  for (int i = 0; i < platforms.size() && exists; i++) {
+			  if (pBullets[count].collidesWithPlatform(platforms[i])) {
+					  pBullets.erase(pBullets.begin() + count);
+					  exists = false;
+			  }
+		  }
+  }
 }
 
 /*
@@ -96,7 +121,11 @@ void Game::render() {
   player->render(renderer);
 
   for (Platform platform : platforms) {
-    platform.render(renderer);
+    if(platform.isVisible()) { platform.render(renderer); }
+  }
+
+  for (int count = 0; count < pBullets.size(); count++) {
+	  pBullets[count].render(renderer);
   }
 
   SDL_RenderPresent(renderer);
