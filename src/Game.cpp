@@ -4,12 +4,14 @@
 #include "Platform.hpp"
 #include "Bullet.h"
 #include "PlatformBullet.h"
+#include "EnemyBullet.h"
 #include <vector>
 
 SDL_Event Game::event;
 Player * player;
 vector<Platform> platforms;
 vector<PlatformBullet> pBullets;
+vector<EnemyBullet> eBullets;
 KeysPressed * keys;
 
 /*
@@ -20,6 +22,7 @@ Game::Game() {
   keys = new KeysPressed();
   platforms = vector<Platform>();
   pBullets = vector<PlatformBullet>();
+  eBullets = vector<EnemyBullet>();
 
   //testing platform bullet
   pBullets.push_back(PlatformBullet(Vector(300, 200), Vector(10, 0)));
@@ -90,7 +93,9 @@ void Game::handleEvents() {
        break;
   }
   if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
-	  std::cout << "here" << std::endl;
+	  eBullets.push_back(EnemyBullet(player->position + Vector(0, 1), Vector(5, 0)));
+  }
+  if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_RIGHT) {
 	  pBullets.push_back(PlatformBullet(player->position + Vector(0, 1), Vector(5, 0)));
   }
 }
@@ -114,6 +119,20 @@ void Game::update() {
 			  }
 		  }
   }
+  for (int count = 0; count < eBullets.size(); count++) {
+	  eBullets[count].updatePosition();
+	  bool exists = true;
+	  if (!eBullets[count].isAlive()) {
+		  eBullets.erase(eBullets.begin() + count);
+		  exists = false;
+	  }
+	  for (int i = 0; i < platforms.size() && exists; i++) {
+		  if (eBullets[count].collidesWithPlatform(platforms[i])) {
+			  eBullets.erase(eBullets.begin() + count);
+			  exists = false;
+		  }
+	  }
+  }
 }
 
 /*
@@ -129,6 +148,10 @@ void Game::render() {
 
   for (int count = 0; count < pBullets.size(); count++) {
 	  pBullets[count].render(renderer);
+  }
+
+  for (int count = 0; count < eBullets.size(); count++) {
+	  eBullets[count].render(renderer);
   }
 
   SDL_RenderPresent(renderer);
