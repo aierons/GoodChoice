@@ -7,7 +7,6 @@ bool PlatformBullet::collidesWithPlatform(Platform& p) {
 	if (p.collides(position)) {
 		if (!p.isVisible()) {
 			p.show();
-			std::cout << "visible" << std::endl;
 		}
 		return true;
 	}
@@ -15,7 +14,6 @@ bool PlatformBullet::collidesWithPlatform(Platform& p) {
 }
 
 void PlatformBullet::render(SDL_Renderer* renderer) {
-	std::cout << "rendered " << position << std::endl;
 	SDL_Texture * tex;
 	SDL_Rect destRect;
 
@@ -27,4 +25,8 @@ void PlatformBullet::render(SDL_Renderer* renderer) {
 	destRect.y = (630 - destRect.h) - position.getY();
 
 	SDL_RenderCopy(renderer, tex, NULL, &destRect);
+}
+
+bool PlatformBullet::collidesWithEnemy(Enemy& e) {
+	return e.collides(position);
 }

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef Bullet_hpp
-#define Bullet_hpp
+#ifndef Enemy_hpp
+#define Enemy_hpp
 #include "Vector.hpp"
 #include "SDL.h"
 #include "SDL_image.h"
@@ -11,6 +11,7 @@ public:
 	Enemy(Vector pos);
 	void updatePosition();
 	void die();
+	bool collides(Vector v);
 	//do we need to check for colliding with platforms? If we make it so the player can drop them we should. If they stay on on-platform paths we don't have to
 private:
 	Vector position;
