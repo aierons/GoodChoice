@@ -9,6 +9,7 @@
 	void Bullet::shoot() { 
 		if (event.key == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 			position = player.position;
+			alive = true; 
 			render();
 			updatePosition();
 		}
