@@ -22,7 +22,7 @@ Game::Game() {
   pBullets = vector<PlatformBullet>();
 
   //testing platform bullet
-  pBullets.push_back(PlatformBullet(Vector(200, 200), Vector(5, 0)));
+  pBullets.push_back(PlatformBullet(Vector(300, 200), Vector(10, 0)));
 
   platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
   platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
@@ -30,7 +30,7 @@ Game::Game() {
   platforms.push_back(Platform(Vector(100, 375), Vector(270, 400)));
 
   //testing invisible platform
-  platforms.push_back(Platform(Vector(400, 200), Vector(450, 205), false));
+  platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
 }
 
 /*
