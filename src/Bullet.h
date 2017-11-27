@@ -10,14 +10,15 @@
 class Bullet { //abstract class Bullet - will be extended by each type of bullet
 public:
 	Bullet(Vector pos, Vector vel);
+	void shoot(); // not sure if this is the most appropriate place to put it
 	void updatePosition();
-	void updateLifetime();
-	bool done();
-	virtual bool collidesWithPlatform(Platform& p) = 0; //alternatively could take in list of platforms
-	virtual bool collidesWithEnemy(Enemy& e) = 0;
-	virtual void render(SDL_Renderer* renderer) = 0;
+	bool isAlive();
+	virtual bool collidesWithPlatform(Platform& p); //alternatively could take in list of platforms
+	virtual bool collidesWithEnemy(Enemy& e);
+	virtual void render(SDL_Renderer* renderer);
+
 protected:
-	int lifetime;
+	bool alive;
 	Vector position;
 	Vector velocity;
 	int width = 7;
