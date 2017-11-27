@@ -97,10 +97,9 @@ void Game::handleEvents() {
 void Game::update() {
   player->update(keys, platforms);
   for (int count = 0; count < pBullets.size(); count++) {
-		  pBullets[count].updateLifetime();
 		  pBullets[count].updatePosition();
 		  bool exists = true;
-		  if (pBullets[count].done()) {
+		  if (!pBullets[count].isAlive()) {
 			  pBullets.erase(pBullets.begin() + count);
 			  exists = false;
 		  }
@@ -147,3 +146,12 @@ void Game::clean() {
 bool Game::running() {
   return isRunning;
 }
+
+/*void Game::shoot() {
+	if (event.key == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+		position = player.position;
+		alive = true;
+		updatePosition();
+		render();
+	}
+}*/
