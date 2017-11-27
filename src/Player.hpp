@@ -28,8 +28,9 @@ class Player {
 
     void render(SDL_Renderer * renderer);
 
+	Vector position;
+
   private:
-    Vector position;
     Vector velocity;
     Vector acceleration;
     bool isFalling;

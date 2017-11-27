@@ -3,7 +3,7 @@
 	Bullet::Bullet(Vector pos, Vector vel) {
 		position = pos;
 		velocity = vel;
-		lifetime = 50; //could be anything, just a dummy value for now
+		lifetime = 100; //could be anything, just a dummy value for now
 	}
 	
 	void Bullet::updatePosition() {

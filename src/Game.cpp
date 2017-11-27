@@ -89,6 +89,10 @@ void Game::handleEvents() {
      default:
        break;
   }
+  if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+	  std::cout << "here" << std::endl;
+	  pBullets.push_back(PlatformBullet(player->position + Vector(0, 1), Vector(5, 0)));
+  }
 }
 
 /*
@@ -148,6 +152,7 @@ bool Game::running() {
 }
 
 /*void Game::shoot() {
+	SDL_PollEvent(&event);
 	if (event.key == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
 		position = player.position;
 		alive = true;
