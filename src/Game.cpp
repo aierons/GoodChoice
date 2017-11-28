@@ -112,10 +112,12 @@ void Game::handleEvents() {
        break;
   }
   if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
-	  eBullets.push_back(EnemyBullet(player->position + Vector(0, 1), Vector(5, 0)));
+	  eBullets.push_back(EnemyBullet(player->position + Vector(7, 14), 
+      Bullet::getInitialVector(player->position + Vector(14, -14), Vector(event.button.x, 600 - event.button.y))));
   }
   if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_RIGHT) {
-	  pBullets.push_back(PlatformBullet(player->position + Vector(0, 1), Vector(5, 0)));
+	  pBullets.push_back(PlatformBullet(player->position + Vector(7, 14), 
+      Bullet::getInitialVector(player->position + Vector(14, -14), Vector(event.button.x, 600 - event.button.y))));
   }
 }
 
