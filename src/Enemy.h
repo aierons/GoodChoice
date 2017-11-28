@@ -4,6 +4,7 @@
 #include "Vector.hpp"
 #include "SDL.h"
 #include "SDL_image.h"
+#include <vector>
 
 class Enemy { //maybe this will be abstract if there are multiple types of enemies
 public:
@@ -21,7 +22,7 @@ private:
 	Vector velocity;
 	Vector acceleration;
 	bool direction;
-
+	vector<Vector> getHitBox();
 	bool reachEnd();
 	void move();
 	void flip();

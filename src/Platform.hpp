@@ -18,6 +18,9 @@ public:
   void render(SDL_Renderer * renderer);
 
   int getEndY();
+    int getEndX();
+    int getStartX();
+    int getStartY();
 
   bool isVisible();
 

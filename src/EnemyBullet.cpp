@@ -28,3 +28,9 @@ bool EnemyBullet::collidesWithEnemy(Enemy& e) {
 	}
 	return false;
 }
+
+
+Vector EnemyBullet::getPosition() {
+	return position;
+}
+

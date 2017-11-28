@@ -1,25 +1,37 @@
 #include "Enemy.h"
 #include "Vector.hpp"
+#include <vector>
+#include "TextureManager.hpp"
 
 Enemy::Enemy(Vector s, Vector e) {
 	start = s;
 	end = e;
 	direction = true;
-	posn = Vector(s);
+	posn = s;
 	velocity = Vector(5, 0);
 	acceleration = Vector(0, 0);
 }
-void Enemy::die() {}
-bool Enemy::collides(Vector v) { return false; }//dummy for now
+void Enemy::die() {
+  delete this;
+}
+
+bool Enemy::collides(Vector v) {
+	vector<Vector> hitBox = this->getHitBox();
+	return v.getX() > hitBox.at(0).getX() && v.getX() > hitBox.at(1).getX()
+			&& v.getX() < hitBox.at(2).getX() && v.getX() < hitBox.at(3).getX()
+			&& v.getY() < hitBox.at(0).getY() && v.getY() < hitBox.at(1).getY()
+			&& v.getY() > hitBox.at(2).getY() && v.getY() < hitBox.at(3).getY();
+}
+
 
 void Enemy::updatePosition() {
 	if (this->direction) {
 		posn += velocity;
-	}
-	else {
+	} else {
 		posn -= velocity;
 	}
-	cout << posn.getX() << endl;
+
+	cout << posn << endl;
 }
 
 void Enemy::move() {
@@ -49,6 +61,19 @@ void Enemy::updateVelocity() {
 
 void Enemy::flip() {
 	this->direction = !this->direction;
+}
+
+vector<Vector> Enemy::getHitBox(){
+	int enemySize = 23;
+	vector<Vector> points;
+	//Top Left
+	points.push_back(Vector(this->posn.getX() - enemySize / 2, this->posn.getY() - enemySize / 2));
+	//Bottom Left .. etc
+	points.push_back(Vector(this->posn.getX() - enemySize / 2, this->posn.getY() + enemySize / 2));
+	points.push_back(Vector(this->posn.getX() + enemySize / 2, this->posn.getY() - enemySize / 2));
+	points.push_back(Vector(this->posn.getX() - enemySize / 2, this->posn.getY() + enemySize / 2));
+
+  return points;
 }
 
 void Enemy::render(SDL_Renderer * renderer) {

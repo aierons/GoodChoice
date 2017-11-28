@@ -20,6 +20,8 @@ public:
 	virtual bool collidesWithEnemy(Enemy& e) = 0;
 	virtual void render(SDL_Renderer* renderer) = 0;
 
+	virtual Vector getPosition();
+
 protected:
 	bool alive;
 	Vector position;

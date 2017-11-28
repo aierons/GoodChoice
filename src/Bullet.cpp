@@ -29,3 +29,7 @@ Vector Bullet::getInitialVector(Vector pVector, Vector mVector) {
 
   return (Vector(dx, dy) / sqrt(pow(dx, 2) + pow(dy, 2)) * 5);
 }
+
+Vector Bullet::getPosition() {
+    return position;
+}

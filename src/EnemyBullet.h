@@ -10,6 +10,7 @@ public:
 	virtual bool collidesWithPlatform(Platform& p); //alternatively could take in list of platforms
 	virtual void render(SDL_Renderer* renderer);
 	virtual bool collidesWithEnemy(Enemy& e);
+	virtual Vector getPosition();
 };
 
 #endif

@@ -59,3 +59,13 @@ bool Platform::isVisible() {
 void Platform::show() {
 	visible = true;
 }
+
+int Platform::getEndX(){
+  return end_x;
+}
+int Platform::getStartX(){
+  return start_x;
+}
+int Platform::getStartY(){
+  return start_y;
+}

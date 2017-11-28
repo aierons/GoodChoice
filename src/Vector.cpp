@@ -1,4 +1,5 @@
 #include "Vector.hpp"
+#include "math.h"
 #include <cassert>
 
 Vector::Vector() {
