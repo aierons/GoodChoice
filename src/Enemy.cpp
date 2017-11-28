@@ -12,7 +12,7 @@ Enemy::Enemy(Vector s, Vector e) {
 void Enemy::die() {}
 bool Enemy::collides(Vector v) { return false; }//dummy for now
 
-void g::updatePosition() {
+void Enemy::updatePosition() {
 	if (this->direction) {
 		posn += velocity;
 	}
@@ -22,7 +22,7 @@ void g::updatePosition() {
 	cout << posn.getX() << endl;
 }
 
-void g::move() {
+void Enemy::move() {
 	if (this->direction) {
 		velocity[0] = 5; // Moves Right
 	}
@@ -31,27 +31,27 @@ void g::move() {
 	}
 }
 
-bool g::reachEnd() {
+bool Enemy::reachEnd() {
 	return posn.getX() < start.getX()
 		&& posn.getX() > end.getX();
 }
 
-void g::updateEnemy() {
+void Enemy::updateEnemy() {
 	if (reachEnd()) {
 		flip();
 	}
 	updatePosition();
 }
 
-void g::updateVelocity() {
+void Enemy::updateVelocity() {
 	velocity += acceleration;
 }
 
-void g::flip() {
+void Enemy::flip() {
 	this->direction = !this->direction;
 }
 
-void g::render(SDL_Renderer * renderer) {
+void Enemy::render(SDL_Renderer * renderer) {
 	SDL_Texture * platformTex;
 	SDL_Rect destRect;
 
