@@ -49,7 +49,7 @@ void Player::updateAcceleration() {
  * Checks if the players position intersects the given platform.
  */
 bool Player::isColliding(Platform platform) {
-  return platform.collides(position);
+  return platform.collides(position) && platform.isVisible();
 }
 
 /*
