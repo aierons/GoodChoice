@@ -13,6 +13,7 @@ vector<Platform> platforms;
 vector<PlatformBullet> pBullets;
 vector<EnemyBullet> eBullets;
 KeysPressed * keys;
+vector<Enemy> enemies;
 
 /*
  * This constructor will initialize the Player, KeyPressed, and platforms
@@ -23,6 +24,7 @@ Game::Game() {
   platforms = vector<Platform>();
   pBullets = vector<PlatformBullet>();
   eBullets = vector<EnemyBullet>();
+  enemies = vector<Enemy>();
 
   //testing platform bullet
   //pBullets.push_back(PlatformBullet(Vector(300, 200), Vector(10, 0)));
@@ -34,6 +36,11 @@ Game::Game() {
 
   //testing invisible platform
   platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
+  for (Platform p : platforms) {
+	if (p.isVisible()) {
+	  enemies.push_back(g(Vector(p.getStartX(), p.getStartY()), Vector(p.getEndX(), p.getEndY())));
+	  }
+  }	
 }
 
 void Game::reset() {
@@ -126,6 +133,9 @@ void Game::handleEvents() {
  */
 void Game::update() {
   player->update(keys, platforms);
+    for (Enemy em : enemies) {
+	  em.updateEnemy();
+  }	
   for (int count = 0; count < pBullets.size(); count++) {
 		  pBullets[count].updatePosition();
 		  bool exists = true;
@@ -178,6 +188,9 @@ void Game::render() {
   for (int count = 0; count < eBullets.size(); count++) {
 	  eBullets[count].render(renderer);
   }
+  for (Enemy em : enemies) {
+	  em.render(renderer);
+  }	
 
   SDL_RenderPresent(renderer);
 }
