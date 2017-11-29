@@ -5,28 +5,37 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include <vector>
+#include "TextureManager.hpp"
+#include "Platform.hpp"
+
 
 class Enemy { //maybe this will be abstract if there are multiple types of enemies
 public:
 	Enemy(Vector start, Vector end);
-	void updatePosition();
-	void render(SDL_Renderer * renderer);
-	void updateEnemy();
-	void die();
-	bool collides(Vector v);
-	//do we need to check for colliding with platforms? If we make it so the player can drop them we should. If they stay on on-platform paths we don't have to
+    void jump();
+    void updatePosition();
+    void updateVelocity();
+    void updateAcceleration();
+    bool isColliding(Platform platform);
+    void checkColliding(vector<Platform> platforms);
+    void update(vector<Platform> platforms);
+    void idle();
+    void render(SDL_Renderer * renderer);
+    void updateDirection();
+    Vector position;
+    
+    void die();
+    bool collides(Vector v);
+    
 private:
-	Vector start;
-	Vector end;
-	Vector posn;
-	Vector velocity;
-	Vector acceleration;
-	bool direction;
-	vector<Vector> getHitBox();
-	bool reachEnd();
-	void move();
-	void flip();
-	void updateVelocity();
+    Vector velocity;
+    Vector acceleration;
+    bool isFalling;
+    Vector start;
+    Vector end;
+    
+    bool direction;
+    vector<Vector> getHitBox();
 	
 };
 
