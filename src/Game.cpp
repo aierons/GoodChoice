@@ -25,6 +25,7 @@ Game::Game() {
     pBullets = vector<PlatformBullet>();
     eBullets = vector<EnemyBullet>();
     enemies = vector<Enemy>();
+    
 
     //testing platform bullet
     //pBullets.push_back(PlatformBullet(Vector(300, 200), Vector(10, 0)));
@@ -33,7 +34,7 @@ Game::Game() {
     platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
     platforms.push_back(Platform(Vector(400, 250), Vector(500, 300)));
     platforms.push_back(Platform(Vector(100, 375), Vector(270, 400)));
-
+    
     //testing invisible platform
     platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
     for (Platform p : platforms) {
@@ -135,20 +136,22 @@ void Game::handleEvents() {
  */
 void Game::update() {
     player->update(keys, platforms);
-    for (Enemy em : enemies) {
-        em.updateEnemy();
-        /*em.updateEnemy();
+    
+    for (int i = 0; i < 4; i++) {
+        enemies[i].update(platforms);
+        
         for (int i = 0; i < eBullets.size(); i++){
             EnemyBullet e = eBullets.at(i);
-            if(em.collides(e.getPosition())){
+            if(enemies[i].collides(e.getPosition())){
                 cout << "COLLIDES" << endl;
-                em.die();
+                enemies[i].die();
             }
         }
-        if (em.collides(player->position)){
+        if (enemies[i].collides(player->position)){
             reset();
-        }*/
+        }
     }
+    
 
     for (int count = 0; count < pBullets.size(); count++) {
         pBullets[count].updatePosition();
@@ -190,7 +193,6 @@ void Game::update() {
 void Game::render() {
     SDL_RenderClear(renderer);
     player->render(renderer);
-
     for (Platform platform : platforms) {
         if (platform.isVisible()) { platform.render(renderer); }
     }
