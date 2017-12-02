@@ -23,7 +23,6 @@ void EnemyBullet::render(SDL_Renderer* renderer) {
 
 bool EnemyBullet::collidesWithEnemy(Enemy& e) {
 	if(e.collides(position)) {
-		e.die();
 		return true;
 	}
 	return false;
