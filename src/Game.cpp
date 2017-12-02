@@ -7,51 +7,65 @@
 #include "EnemyBullet.h"
 #include "NormalEnemy.hpp"
 #include "FlyingEnemy.hpp"
+#include "Level.h"
 
 #include <vector>
 
 SDL_Event Game::event;
 Player *player;
+KeysPressed * keys;
+
 vector<Platform> platforms;
 vector<PlatformBullet> pBullets;
 vector<EnemyBullet> eBullets;
-KeysPressed * keys;
 vector<NormalEnemy> enemies;
 vector<FlyingEnemy> flyingenemies;
+
+vector<Level> levels;
+int levelCount;
 
 /*
  * This constructor will initialize the Player, KeyPressed, and platforms
  */
 Game::Game() {
+	keys = new KeysPressed();
+	levelCount = 0;
+	levels.push_back(Level());
     player = new Player();
-    keys = new KeysPressed();
-    platforms = vector<Platform>();
-    pBullets = vector<PlatformBullet>();
-    eBullets = vector<EnemyBullet>();
-    enemies = vector<NormalEnemy>();
-    flyingenemies = vector<FlyingEnemy>();
+    levels[0].platforms = vector<Platform>();
+	levels[0].pBullets = vector<PlatformBullet>();
+	levels[0].eBullets = vector<EnemyBullet>();
+	levels[0].enemies = vector<NormalEnemy>();
+	levels[0].flyingenemies = vector<FlyingEnemy>();
 
-    //testing platform bullet
-    //pBullets.push_back(PlatformBullet(Vector(300, 200), Vector(10, 0)));
-
-    platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
-    platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
-    platforms.push_back(Platform(Vector(400, 250), Vector(500, 300)));
-    platforms.push_back(Platform(Vector(100, 375), Vector(270, 400)));
+	levels[0].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
+	levels[0].platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
+	levels[0].platforms.push_back(Platform(Vector(400, 250), Vector(500, 300)));
+	levels[0].platforms.push_back(Platform(Vector(100, 375), Vector(270, 400)));
     
-    //testing invisible platform
-    platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
-    for (Platform p : platforms) {
+	levels[0].platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
+    for (Platform p : levels[0].platforms) {
         if (p.isVisible()) {
-            enemies.push_back(NormalEnemy(Vector(p.getStartX(), p.getEndY()), Vector(p.getEndX(), p.getEndY())));
+			levels[0].enemies.push_back(NormalEnemy(Vector(p.getStartX(), p.getEndY()), Vector(p.getEndX(), p.getEndY())));
         }
     }
     
-    flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
+	levels[0].flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
+
+	load();
 }
 
+void Game::load() {
+	player = new Player();
+	platforms = levels[levelCount].platforms;
+	pBullets = levels[levelCount].pBullets;
+	eBullets = levels[levelCount].eBullets;
+	enemies = levels[levelCount].enemies;
+	flyingenemies = levels[levelCount].flyingenemies;
+}
 void Game::reset() {
-    player = new Player();
+	load();
+    /*player = new Player();
     keys = new KeysPressed();
     platforms = vector<Platform>();
     pBullets = vector<PlatformBullet>();
@@ -66,7 +80,7 @@ void Game::reset() {
     platforms.push_back(Platform(Vector(100, 375), Vector(270, 400)));
 
     //testing invisible platform
-    platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
+    platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));*/
 }
 
 /*
