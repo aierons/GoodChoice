@@ -1,3 +1,11 @@
+#define _CRTDBG_MAP_ALLOC
+#include<iostream>
+#include <crtdbg.h>
+#ifdef _DEBUG
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
+#endif
+
 #include "Game.hpp"
 
 Game * game = nullptr;
@@ -7,6 +15,7 @@ Game * game = nullptr;
  * game stops running, the Game will clean itself up and the program will terminate.
  */
 int main(int argc, char * argv[]) {
+
   const int FPS = 60;
   const int frameDelay = 1000 / FPS;
 
@@ -32,6 +41,8 @@ int main(int argc, char * argv[]) {
 
   game->clean();
   delete game;
+
+  _CrtDumpMemoryLeaks();
 
   return 0;
 }
