@@ -5,6 +5,9 @@
 #include "Bullet.h"
 #include "PlatformBullet.h"
 #include "EnemyBullet.h"
+#include "NormalEnemy.hpp"
+#include "FlyingEnemy.hpp"
+
 #include <vector>
 
 SDL_Event Game::event;
@@ -13,7 +16,8 @@ vector<Platform> platforms;
 vector<PlatformBullet> pBullets;
 vector<EnemyBullet> eBullets;
 KeysPressed * keys;
-vector<Enemy> enemies;
+vector<NormalEnemy> enemies;
+vector<FlyingEnemy> flyingenemies;
 
 /*
  * This constructor will initialize the Player, KeyPressed, and platforms
@@ -24,8 +28,8 @@ Game::Game() {
     platforms = vector<Platform>();
     pBullets = vector<PlatformBullet>();
     eBullets = vector<EnemyBullet>();
-    enemies = vector<Enemy>();
-    
+    enemies = vector<NormalEnemy>();
+    flyingenemies = vector<FlyingEnemy>();
 
     //testing platform bullet
     //pBullets.push_back(PlatformBullet(Vector(300, 200), Vector(10, 0)));
@@ -39,9 +43,11 @@ Game::Game() {
     platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
     for (Platform p : platforms) {
         if (p.isVisible()) {
-            enemies.push_back(Enemy(Vector(p.getStartX(), p.getEndY()), Vector(p.getEndX(), p.getEndY())));
+            enemies.push_back(NormalEnemy(Vector(p.getStartX(), p.getEndY()), Vector(p.getEndX(), p.getEndY())));
         }
     }
+    
+    flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
 }
 
 void Game::reset() {
@@ -136,20 +142,26 @@ void Game::handleEvents() {
  */
 void Game::update() {
     player->update(keys, platforms);
-    
-    for (int i = 0; i < 4; i++) {
-        enemies[i].update(platforms);
-        
-        for (int i = 0; i < eBullets.size(); i++){
-            EnemyBullet e = eBullets.at(i);
-            if(enemies[i].collides(e.getPosition())){
-                cout << "COLLIDES" << endl;
-                enemies[i].die();
+    //fly->update();
+//    for (Enemy em : enemies) {
+//        enemies[i].update(platforms);
+//
+    for (int i = 0; i < enemies.size(); i++) {
+        enemies[i].update(*player);
+        for (int k = 0; k < eBullets.size(); k++){
+            EnemyBullet b = eBullets.at(k);
+            if(enemies[i].collides(b.getPosition())){
+                enemies.erase(enemies.begin() + i);
+                
             }
         }
         if (enemies[i].collides(player->position)){
             reset();
         }
+    }
+    
+    for (int i  = 0; i < flyingenemies.size(); i++){
+        flyingenemies[i].update(*player);
     }
     
 
@@ -193,6 +205,7 @@ void Game::update() {
 void Game::render() {
     SDL_RenderClear(renderer);
     player->render(renderer);
+    //fly->render(renderer, flyingEnemyImagePath);
     for (Platform platform : platforms) {
         if (platform.isVisible()) { platform.render(renderer); }
     }
@@ -204,6 +217,11 @@ void Game::render() {
     for (int count = 0; count < eBullets.size(); count++) {
         eBullets[count].render(renderer);
     }
+    
+    for (FlyingEnemy em : flyingenemies) {
+        em.render(renderer);
+    }
+
 
     for (Enemy em : enemies) {
         em.render(renderer);
