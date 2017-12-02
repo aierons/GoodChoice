@@ -2,37 +2,39 @@
 #ifndef Enemy_hpp
 #define Enemy_hpp
 #include "Vector.hpp"
-#include "SDL.h"
-#include "SDL_image.h"
+#include <SDL2/SDL.h> 
+#include <SDL2/SDL_image.h>
 #include <vector>
 #include "TextureManager.hpp"
+#include "KeysPressed.hpp"
 #include "Platform.hpp"
+#include "Player.hpp"
+#define RIGHT true
+#define LEFT false
 
-class Enemy { //maybe this will be abstract if there are multiple types of enemies
+// abstract class Enemy - will be extended by different types of enemy
+class Enemy {
 public:
-	Enemy();
+    // Constructor
 	Enemy(Vector start, Vector end);
-	void jump();
-	virtual void updatePosition();
-	void updateVelocity();
-	void updateAcceleration();
-	void update(vector<Platform> platforms);
-	virtual void render(SDL_Renderer * renderer);
-	void updateDirection();
-	Vector position;
-	void die();
-	bool collides(Vector v);
-	//do we need to check for colliding with platforms? If we make it so the player can drop them we should. If they stay on on-platform paths we don't have to
+    
+    void updateVelocity();
+    void updateAcceleration();
+    void updateDirection();
+    bool collides(Vector v);
+    
+    virtual void render(SDL_Renderer * renderer);
+    virtual void updatePosition(Player play);
+    virtual void update(Player player);
+    
 protected:
-	Vector velocity;
-	Vector acceleration;
-	bool isFalling;
-	Vector start;
-	Vector end;
-
-	bool direction;
-	vector<Vector> getHitBox();
-	
+    Vector velocity;
+    Vector acceleration;
+    bool isFalling;
+    Vector start;
+    Vector end;
+    bool direction;
+    Vector position;
 };
 
 #endif
