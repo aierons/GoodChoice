@@ -19,6 +19,7 @@ void EnemyBullet::render(SDL_Renderer* renderer) {
 	destRect.y = (630 - destRect.h) - position.getY();
 
 	SDL_RenderCopy(renderer, tex, NULL, &destRect);
+	SDL_DestroyTexture(tex);
 }
 
 bool EnemyBullet::collidesWithEnemy(Enemy& e) {

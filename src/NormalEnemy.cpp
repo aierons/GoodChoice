@@ -34,6 +34,7 @@ void NormalEnemy::render(SDL_Renderer * renderer) {
     destRect.y = 600 - position.getY();
 
     SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
+	SDL_DestroyTexture(enemyTex);
 }
 
 

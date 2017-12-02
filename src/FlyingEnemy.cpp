@@ -36,7 +36,7 @@ void FlyingEnemy::render(SDL_Renderer * renderer) {
     SDL_Texture * enemyTex;
     SDL_Rect destRect;
     
-    enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Testing/res/flying.png", renderer);
+    enemyTex = TextureManager::loadTexture("res/flying.png", renderer);
     destRect.w = 23;
     destRect.h = 23;
     
@@ -44,6 +44,7 @@ void FlyingEnemy::render(SDL_Renderer * renderer) {
     destRect.y = 600 - position.getY();
     
     SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
+	SDL_DestroyTexture(enemyTex);
 }
 
 

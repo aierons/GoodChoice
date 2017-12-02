@@ -43,6 +43,7 @@ void Platform::render(SDL_Renderer * renderer) {
   destRect.y = (630 - destRect.h) - start_y;
 
   SDL_RenderCopy(renderer, platformTex, NULL, &destRect);
+  SDL_DestroyTexture(platformTex);
 }
 
 /*

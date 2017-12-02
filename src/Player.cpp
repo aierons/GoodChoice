@@ -152,4 +152,5 @@ void Player::render(SDL_Renderer * renderer) {
   destRect.y = 600 - position.getY();
 
   SDL_RenderCopy(renderer, playerTex, NULL, &destRect);
+  SDL_DestroyTexture(playerTex);
 }

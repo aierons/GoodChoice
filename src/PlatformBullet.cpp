@@ -25,6 +25,7 @@ void PlatformBullet::render(SDL_Renderer* renderer) {
 	destRect.y = (630 - destRect.h) - position.getY();
 
 	SDL_RenderCopy(renderer, tex, NULL, &destRect);
+	SDL_DestroyTexture(tex);
 }
 
 bool PlatformBullet::collidesWithEnemy(Enemy& e) {
