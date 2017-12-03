@@ -16,5 +16,6 @@ public:
 	vector<EnemyBullet> eBullets;
 	vector<NormalEnemy> enemies;
 	vector<FlyingEnemy> flyingenemies;
+	Goal * goal;
 };
 #endif

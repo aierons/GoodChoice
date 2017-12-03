@@ -51,6 +51,12 @@ void Player::updateAcceleration() {
 bool Player::isColliding(Platform platform) {
   return platform.collides(position) && platform.isVisible();
 }
+/*
+* Checks if the players position intersects the given goal.
+*/
+bool Player::isColliding(Goal goal) {
+	return goal.collides(position);
+}
 
 /*
  * Updates player's isFalling state based on collision of any platform

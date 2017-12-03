@@ -15,6 +15,7 @@ SDL_Event Game::event;
 Player *player;
 KeysPressed * keys;
 
+Goal * goal;
 vector<Platform> platforms;
 vector<PlatformBullet> pBullets;
 vector<EnemyBullet> eBullets;
@@ -30,6 +31,7 @@ int levelCount;
 Game::Game() {
 	keys = new KeysPressed();
 	levelCount = 0;
+	levels.push_back(Level());
 	levels.push_back(Level());
     player = new Player();
     levels[0].platforms = vector<Platform>();
@@ -51,12 +53,17 @@ Game::Game() {
     }
     
 	levels[0].flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
+	levels[0].goal = new Goal(Vector(250, 500));
+
+	levels[1].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
+	levels[1].goal = new Goal(Vector(550, 500));
 
 	load();
 }
 
 void Game::load() {
 	player = new Player();
+	goal = levels[levelCount].goal;
 	platforms = levels[levelCount].platforms;
 	pBullets = levels[levelCount].pBullets;
 	eBullets = levels[levelCount].eBullets;
@@ -89,6 +96,12 @@ void Game::reset() {
 Game::~Game() {
     delete player;
     delete keys;
+	for (int i = 0; i < levels.size(); i++) {
+		//if there is a level without a goal this will cause an issue
+		delete levels[0].goal;
+		//this might cause an issue ---- if so, try doing begin + i. I don't know if erase slides stuff over or not
+		levels.erase(levels.begin());
+	}
 }
 
 /*
@@ -211,6 +224,11 @@ void Game::update() {
     if (keys->hasKeyCode(SDLK_ESCAPE)) {
         reset();
     }
+
+	if (player->isColliding(*goal)) {
+		levelCount++;
+		load();
+	}
 }
 
 /*
@@ -240,6 +258,8 @@ void Game::render() {
     for (Enemy em : enemies) {
         em.render(renderer);
     }
+
+	goal->render(renderer);
 
     SDL_RenderPresent(renderer);
 }

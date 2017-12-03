@@ -6,6 +6,7 @@
 #include "TextureManager.hpp"
 #include "KeysPressed.hpp"
 #include "Platform.hpp"
+#include "Goal.h"
 
 /*
  * Represents the player that is given its current position, velocity, and
@@ -19,6 +20,7 @@ class Player {
     void updateVelocity();
     void updateAcceleration();
     bool isColliding(Platform platform);
+	bool isColliding(Goal goal);
     void checkColliding(vector<Platform> platforms);
     void update(KeysPressed * keys, vector<Platform> platforms);
 
