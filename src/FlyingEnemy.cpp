@@ -25,20 +25,27 @@ void FlyingEnemy::updatePosition(Player player) {
     int y = (int) this->position.getY();
     int x2 = (int) player.position.getX();
     int y2 = (int) player.position.getY();
-    Vector slope = Vector((x2 - x) / 100, (y2 - y) / 100);
-    if (this->position.getX() > player.position.getX()){
-         this->position += slope;
-    } else {
-         this->position -= -1 * slope;
-    }
+    Vector slope = Vector((x2 - x) / 25, (y2 - y) / 25);
+	if (player.isIdle()) {
+		// still gotta move if it is idle
+	}
+	else {
+		if (this->position.getX() > player.position.getX()) {
+			this->position += slope;
+		}
+		else {
+			this->position -= -1 * slope;
+		}
+	}
+
 }
 void FlyingEnemy::render(SDL_Renderer * renderer) {
     SDL_Texture * enemyTex;
     SDL_Rect destRect;
     
     enemyTex = TextureManager::loadTexture("res/flying.png", renderer);
-    destRect.w = 23;
-    destRect.h = 23;
+    destRect.w = 40;
+    destRect.h = 40;
     
     destRect.x = position.getX();
     destRect.y = 600 - position.getY();

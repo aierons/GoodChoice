@@ -17,6 +17,7 @@ class Enemy {
 public:
     // Constructor
 	Enemy(Vector start, Vector end);
+	Enemy();
     
     void updateVelocity();
     void updateAcceleration();
@@ -26,6 +27,8 @@ public:
     virtual void render(SDL_Renderer * renderer);
     virtual void updatePosition(Player play);
     virtual void update(Player player);
+	bool facingRight();
+	Vector getPostion();
     
 protected:
     Vector velocity;

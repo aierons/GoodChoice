@@ -7,6 +7,7 @@
 #include "EnemyBullet.h"
 #include "NormalEnemy.hpp"
 #include "FlyingEnemy.hpp"
+#include "CloneEnemy.h"
 #include "Level.h"
 
 #include <vector>
@@ -15,11 +16,13 @@ SDL_Event Game::event;
 Player *player;
 KeysPressed * keys;
 
+Goal * goal;
 vector<Platform> platforms;
 vector<PlatformBullet> pBullets;
 vector<EnemyBullet> eBullets;
-vector<NormalEnemy> enemies;
+vector<NormalEnemy> normalEnemies;
 vector<FlyingEnemy> flyingenemies;
+vector<CloneEnemy> cloneEnemies;
 
 vector<Level> levels;
 int levelCount;
@@ -31,12 +34,14 @@ Game::Game() {
 	keys = new KeysPressed();
 	levelCount = 0;
 	levels.push_back(Level());
+	levels.push_back(Level());
     player = new Player();
     levels[0].platforms = vector<Platform>();
 	levels[0].pBullets = vector<PlatformBullet>();
 	levels[0].eBullets = vector<EnemyBullet>();
-	levels[0].enemies = vector<NormalEnemy>();
+	levels[0].normalEnemies = vector<NormalEnemy>();
 	levels[0].flyingenemies = vector<FlyingEnemy>();
+	levels[0].cloneEnemies = vector<CloneEnemy>();
 
 	levels[0].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
 	levels[0].platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
@@ -46,22 +51,30 @@ Game::Game() {
 	levels[0].platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
     for (Platform p : levels[0].platforms) {
         if (p.isVisible()) {
-			levels[0].enemies.push_back(NormalEnemy(Vector(p.getStartX(), p.getEndY()), Vector(p.getEndX(), p.getEndY())));
+			levels[0].normalEnemies.push_back(NormalEnemy(Vector(p.getStartX(), p.getEndY()), Vector(p.getEndX(), p.getEndY())));
         }
     }
-    
-	levels[0].flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
+	levels[0].goal = new Goal(Vector(250, 500));
+
+	levels[1].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
+	levels[1].flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
+	levels[1].cloneEnemies.push_back(CloneEnemy(levels[0].platforms[0], Vector(levels[0].platforms[0].getStartX(), levels[0].platforms[0].getEndY()), RIGHT));
+
+	levels[1].goal = new Goal(Vector(550, 500));
 
 	load();
 }
 
 void Game::load() {
 	player = new Player();
+	goal = levels[levelCount].goal;
 	platforms = levels[levelCount].platforms;
 	pBullets = levels[levelCount].pBullets;
 	eBullets = levels[levelCount].eBullets;
-	enemies = levels[levelCount].enemies;
+	normalEnemies = levels[levelCount].normalEnemies;
 	flyingenemies = levels[levelCount].flyingenemies;
+	cloneEnemies = levels[levelCount].cloneEnemies;
+
 }
 void Game::reset() {
 	load();
@@ -89,6 +102,12 @@ void Game::reset() {
 Game::~Game() {
     delete player;
     delete keys;
+	for (int i = 0; i < levels.size(); i++) {
+		//if there is a level without a goal this will cause an issue
+		delete levels[0].goal;
+		//this might cause an issue ---- if so, try doing begin + i. I don't know if erase slides stuff over or not
+		levels.erase(levels.begin());
+	}
 }
 
 /*
@@ -150,29 +169,96 @@ void Game::handleEvents() {
                                                                    Vector(event.button.x, 600 - event.button.y))));
     }
 }
+/*
+* checks if any of the bullets collide wiht the enemy
+* eraise the enemy from the vector if it is hit
+*/
+bool Game::ifEnemyGotHIt(int enemyIndex) {
+	vector<int> toDelete;
+	bool gotHit = false;
+	for (int k = 0; k < eBullets.size(); k++) {
+		EnemyBullet bullet = eBullets.at(k);
+		if (normalEnemies[enemyIndex].collides(bullet.getPosition())) {
+			toDelete.push_back(k);
+			gotHit = true;
+		}
+	}
+
+	for (int i : toDelete) {
+		eBullets.erase(eBullets.begin() + i);
+	}
+	return gotHit;
+}
+
+/*
+* checks if any of the enemies are touching the player, if they are reset the game
+*/
+void Game::ifPlayerDies(int enemyIndex) {
+	if (normalEnemies[enemyIndex].collides(player->position)) {
+		reset();
+	}
+}
+
+/*
+* checks if any of the enemies are touching the player, if they are reset the game
+*/
+void Game::updateNormalEnemies() {
+	// first check if there is anything to delete to prevent changing the size of the array during iterating throught for loop
+	vector<int> toDelete;
+	for (int i = 0; i < normalEnemies.size(); i++) {
+		if (ifEnemyGotHIt(i)) {
+			toDelete.push_back(i);
+		}
+	}
+	for (int i : toDelete) {
+		normalEnemies.erase(normalEnemies.begin() + i);
+	}
+
+	for (int i = 0; i < normalEnemies.size(); i++) {
+		normalEnemies[i].update(*player);
+		ifPlayerDies(i);
+	}
+}
+
+void Game::updateCloneEnemies() {
+	for (int i = 0; i < cloneEnemies.size(); i++) {
+		cloneEnemies[i].update(*player);
+		ifHitClone(i);
+	}
+}
+
+void Game::ifHitClone(int enemyIndex) {
+	if (!cloneEnemies[enemyIndex].hasCloned) {
+		for (int k = 0; k < pBullets.size(); k++) {
+			PlatformBullet b = pBullets.at(k);
+			if (cloneEnemies[enemyIndex].collides(b.getPosition())) {
+				cloneEnemies.push_back(CloneEnemy(cloneEnemies[enemyIndex].platform, cloneEnemies[enemyIndex].getPostion(), !cloneEnemies[enemyIndex].facingRight()));
+				cloneEnemies[enemyIndex].hasCloned = true;
+				cloneEnemies[enemyIndex + 1].hasCloned = true;
+				pBullets.erase(pBullets.begin() + k);
+			}
+		}
+	}
+
+	for (int j = 0; j < eBullets.size(); j++) {
+		EnemyBullet b = eBullets.at(j);
+		if (cloneEnemies[enemyIndex].collides(b.getPosition())) {
+			cloneEnemies.erase(cloneEnemies.begin() + enemyIndex);
+			pBullets.erase(pBullets.begin() + j);
+			break;
+		}
+	}
+}
 
 /*
  * Updates the state of the game.
  */
 void Game::update() {
     player->update(keys, platforms);
-    //fly->update();
-//    for (Enemy em : enemies) {
-//        enemies[i].update(platforms);
-//
-    for (int i = 0; i < enemies.size(); i++) {
-        enemies[i].update(*player);
-        for (int k = 0; k < eBullets.size(); k++){
-            EnemyBullet b = eBullets.at(k);
-            if(enemies[i].collides(b.getPosition())){
-                enemies.erase(enemies.begin() + i);
-                
-            }
-        }
-        if (enemies[i].collides(player->position)){
-            reset();
-        }
-    }
+	updateNormalEnemies();
+	if (!cloneEnemies.empty()) {
+		updateCloneEnemies();
+	}
     
     for (int i  = 0; i < flyingenemies.size(); i++){
         flyingenemies[i].update(*player);
@@ -211,6 +297,11 @@ void Game::update() {
     if (keys->hasKeyCode(SDLK_ESCAPE)) {
         reset();
     }
+
+	if (player->isColliding(*goal)) {
+		levelCount++;
+		load();
+	}
 }
 
 /*
@@ -219,7 +310,7 @@ void Game::update() {
 void Game::render() {
     SDL_RenderClear(renderer);
     player->render(renderer);
-    //fly->render(renderer, flyingEnemyImagePath);
+
     for (Platform platform : platforms) {
         if (platform.isVisible()) { platform.render(renderer); }
     }
@@ -237,9 +328,13 @@ void Game::render() {
     }
 
 
-    for (Enemy em : enemies) {
+    for (Enemy em : normalEnemies) {
         em.render(renderer);
     }
+	for (CloneEnemy em : cloneEnemies) {
+		em.render(renderer);
+	}
+	goal->render(renderer);
 
     SDL_RenderPresent(renderer);
 }

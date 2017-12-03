@@ -16,6 +16,11 @@ class Game {
     void init(const char * title, int xpos, int ypos, int width, int height, bool fullscreen);
     void handleEvents();
     void update();
+	bool ifEnemyGotHIt(int enemyindex);
+	void ifPlayerDies(int enemyIndex);
+	void ifHitClone(int enemyIndex);
+	void updateNormalEnemies();
+	void updateCloneEnemies();
 	void load();
     void reset();
     void render();

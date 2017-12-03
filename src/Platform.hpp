@@ -11,6 +11,7 @@
  */
 class Platform {
 public:
+  Platform();
   Platform(Vector start_v, Vector end_v);
   Platform(Vector start_v, Vector end_v, bool vis);
   bool collides(Vector v);

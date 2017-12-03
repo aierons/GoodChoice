@@ -8,7 +8,22 @@ Enemy::Enemy(Vector s, Vector e) {
     velocity = Vector(1, 0);
     acceleration = Vector(0, 0);
 }
+Enemy::Enemy() {
+	start = Vector(1, 0);
+	end = Vector(0, 0);
+	direction = true;
+	position = start;
+	velocity = Vector(1, 0);
+	acceleration = Vector(0, 0);
+}
 
+bool Enemy::facingRight() {
+	return direction;
+}
+
+Vector Enemy::getPostion() {
+	return Vector(position.getX(), position.getY());
+}
 void Enemy::updateVelocity() {
     velocity += acceleration;
 }

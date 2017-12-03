@@ -12,6 +12,7 @@ Platform::Platform(Vector start_v, Vector end_v, bool vis) {
   end_y = end_v.getY();
   visible = vis;
 }
+Platform::Platform() : Platform(Vector(50, 20), Vector(550, 90), true) { }
 
 /*
  * Overloaded constructor that automatically sets visible to true.
