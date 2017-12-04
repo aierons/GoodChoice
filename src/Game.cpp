@@ -91,6 +91,12 @@ Game::Game() {
 
 	levels[2].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
 
+	levels[2].platforms.push_back(Platform(Vector(50, 120), Vector(70, 450)));
+
+	levels[2].platforms.push_back(Platform(Vector(70, 420), Vector(170, 440)));
+
+	levels[2].normalEnemies.push_back(NormalEnemy(Vector(50, 450), Vector(70, 450)));
+
 	levels[2].goal = new Goal(Vector(50, 500));
 
 	load();
