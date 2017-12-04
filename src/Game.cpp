@@ -23,10 +23,12 @@ vector<EnemyBullet> eBullets;
 vector<NormalEnemy> normalEnemies;
 vector<FlyingEnemy> flyingenemies;
 vector<CloneEnemy> cloneEnemies;
+//for testing
+bool pressed = false;
 
 vector<Level> levels;
 int levelCount;
-const int maxLevels = 1;
+const int maxLevels = 2;
 
 /*
  * This constructor will initialize the Player, KeyPressed, and platforms
@@ -35,9 +37,10 @@ Game::Game() {
 	keys = new KeysPressed();
 	levelCount = 0;
 
-	levels.push_back(Level());
-	levels.push_back(Level());
-    player = new Player();
+	for (int i = 0; i <= maxLevels; i++) {
+		levels.push_back(Level());
+	}
+	player = new Player();
     levels[0].platforms = vector<Platform>();
 	levels[0].pBullets = vector<PlatformBullet>();
 	levels[0].eBullets = vector<EnemyBullet>();
@@ -85,6 +88,10 @@ Game::Game() {
 	levels[1].cloneEnemies.push_back(CloneEnemy(levels[0].platforms[0], Vector(levels[0].platforms[0].getStartX(), levels[0].platforms[0].getEndY()), RIGHT));
 
 	levels[1].goal = new Goal(Vector(550, 500));
+
+	levels[2].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
+
+	levels[2].goal = new Goal(Vector(50, 500));
 
 	load();
 }
@@ -197,9 +204,13 @@ void Game::handleEvents() {
     }
 
 	//for testing only
-	if (keys->hasKeyCode(SDLK_x)) {
+	if (keys->hasKeyCode(SDLK_z)) {
+		pressed = true;
+	}
+	if (keys->hasKeyCode(SDLK_x) && pressed) {
 		levelCount++;
 		load();
+		pressed = false;
 	}
 }
 /*
