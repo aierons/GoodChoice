@@ -36,7 +36,7 @@ void Platform::render(SDL_Renderer * renderer) {
   SDL_Texture * platformTex;
   SDL_Rect destRect;
 
-  platformTex = TextureManager::loadTexture("res/platform.png", renderer);
+  platformTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/platform.png", renderer);
   destRect.w = end_x - start_x;
   destRect.h = end_y - start_y;
 
