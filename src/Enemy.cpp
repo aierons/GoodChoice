@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(Vector s, Vector e) {
+nemy::Enemy(Vector s, Vector e) {
     start = s;
     end = e;
     direction = true;
@@ -51,15 +51,20 @@ void Enemy::render(SDL_Renderer * renderer) {
     SDL_Texture * enemyTex;
     SDL_Rect destRect;
     
-    enemyTex = TextureManager::loadTexture("res/enemy.png", renderer);
-    destRect.w = 23;
-    destRect.h = 23;
+    if (direction == RIGHT) {
+        enemyTex = TextureManager::loadTexture("res/enemyRight.png", renderer);
+    }
+    else{
+        enemyTex = TextureManager::loadTexture("res/enemyLeft.png", renderer);
+    }
+    destRect.w = 50;
+    destRect.h = 50;
     
     destRect.x = position.getX();
     destRect.y = 600 - position.getY();
     
     SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
-	SDL_DestroyTexture(enemyTex);
+    SDL_DestroyTexture(enemyTex);
 }
 
 
