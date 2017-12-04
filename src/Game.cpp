@@ -26,6 +26,7 @@ vector<CloneEnemy> cloneEnemies;
 
 vector<Level> levels;
 int levelCount;
+const int maxLevels = 1;
 
 /*
  * This constructor will initialize the Player, KeyPressed, and platforms
@@ -33,6 +34,7 @@ int levelCount;
 Game::Game() {
 	keys = new KeysPressed();
 	levelCount = 0;
+
 	levels.push_back(Level());
 	levels.push_back(Level());
     player = new Player();
@@ -56,22 +58,33 @@ Game::Game() {
     }
 	levels[0].goal = new Goal(Vector(250, 500));
 
-	levels[1].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
-
-	levels[1].flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
-
-	levels[1].cloneEnemies.push_back(CloneEnemy(levels[0].platforms[0], Vector(levels[0].platforms[0].getStartX(), levels[0].platforms[0].getEndY()), RIGHT));
-
-    
 	levels[0].flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
 
 	levels[1].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
+
+	levels[1].platforms.push_back(Platform(Vector(450, 170), Vector(650, 220)));
+
+	levels[1].platforms.push_back(Platform(Vector(50, 170), Vector(250, 220)));
+
+	levels[1].platforms.push_back(Platform(Vector(450, 420), Vector(650, 470)));
+
+	levels[1].platforms.push_back(Platform(Vector(50, 420), Vector(250, 470)));
+
+	levels[1].platforms.push_back(Platform(Vector(250, 290), Vector(450, 340), false));
+
+	levels[1].flyingenemies.push_back(FlyingEnemy(Vector(320, 150), Vector(420, 180)));
+
+	levels[1].cloneEnemies.push_back(CloneEnemy(levels[0].platforms[0], Vector(levels[0].platforms[0].getStartX(), levels[0].platforms[0].getEndY()), RIGHT));
+
 	levels[1].goal = new Goal(Vector(550, 500));
 
 	load();
 }
 
 void Game::load() {
+	if (levelCount > maxLevels) {
+		levelCount = maxLevels;
+	}
 	player = new Player();
 	goal = levels[levelCount].goal;
 	platforms = levels[levelCount].platforms;
@@ -174,6 +187,12 @@ void Game::handleEvents() {
                                           Bullet::getInitialVector(player->position + Vector(14, -14),
                                                                    Vector(event.button.x, 600 - event.button.y))));
     }
+
+	//for testing only
+	if (keys->hasKeyCode(SDLK_x)) {
+		levelCount++;
+		load();
+	}
 }
 /*
 * checks if any of the bullets collide wiht the enemy
