@@ -64,11 +64,19 @@ Game::Game() {
 
 	levels[1].platforms.push_back(Platform(Vector(450, 170), Vector(650, 220)));
 
+	levels[1].normalEnemies.push_back(NormalEnemy(Vector(450, 210), Vector(650, 260)));
+
 	levels[1].platforms.push_back(Platform(Vector(50, 170), Vector(250, 220)));
+
+	levels[1].normalEnemies.push_back(NormalEnemy(Vector(50, 210), Vector(250, 260)));
 
 	levels[1].platforms.push_back(Platform(Vector(450, 420), Vector(650, 470)));
 
 	levels[1].platforms.push_back(Platform(Vector(50, 420), Vector(250, 470)));
+
+	levels[1].normalEnemies.push_back(NormalEnemy(Vector(450, 460), Vector(650, 510)));
+
+	levels[1].normalEnemies.push_back(NormalEnemy(Vector(460, 460), Vector(640, 510)));
 
 	levels[1].platforms.push_back(Platform(Vector(250, 290), Vector(450, 340), false));
 
