@@ -1,10 +1,3 @@
-//
-//  NormalEnemy.cpp
-//  testing
-//
-//  Created by Wesley Jiang on 12/1/17.
-//  Copyright © 2017 Wesley Jiang. All rights reserved.
-//
 
 #include "NormalEnemy.hpp"
 
@@ -26,15 +19,13 @@ void NormalEnemy::render(SDL_Renderer * renderer) {
     SDL_Texture * enemyTex;
     SDL_Rect destRect;
 
-    enemyTex = TextureManager::loadTexture("res/enemy.png", renderer);
-    destRect.w = 23;
-    destRect.h = 23;
+    enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/enemy.png", renderer);
+    destRect.w = 100;
+    destRect.h = 100;
 
     destRect.x = position.getX();
     destRect.y = 600 - position.getY();
 
     SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
-	SDL_DestroyTexture(enemyTex);
+    SDL_DestroyTexture(enemyTex);
 }
-
-
