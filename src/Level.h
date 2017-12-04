@@ -17,10 +17,7 @@ public:
 	vector<EnemyBullet> eBullets;
 	vector<NormalEnemy> normalEnemies;
 	vector<FlyingEnemy> flyingenemies;
-<<<<<<< HEAD
 	vector<CloneEnemy> cloneEnemies;
-=======
->>>>>>> origin/master
 	Goal * goal;
 };
 #endif

@@ -54,20 +54,18 @@ Game::Game() {
 			levels[0].normalEnemies.push_back(NormalEnemy(Vector(p.getStartX(), p.getEndY()), Vector(p.getEndX(), p.getEndY())));
         }
     }
-<<<<<<< HEAD
 	levels[0].goal = new Goal(Vector(250, 500));
 
 	levels[1].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
+
 	levels[1].flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
+
 	levels[1].cloneEnemies.push_back(CloneEnemy(levels[0].platforms[0], Vector(levels[0].platforms[0].getStartX(), levels[0].platforms[0].getEndY()), RIGHT));
 
-=======
     
 	levels[0].flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
-	levels[0].goal = new Goal(Vector(250, 500));
 
 	levels[1].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
->>>>>>> origin/master
 	levels[1].goal = new Goal(Vector(550, 500));
 
 	load();
