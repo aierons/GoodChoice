@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-nemy::Enemy(Vector s, Vector e) {
+Enemy::Enemy(Vector s, Vector e) {
     start = s;
     end = e;
     direction = true;

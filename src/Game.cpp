@@ -372,7 +372,7 @@ void Game::update() {
 void Game::render_background(SDL_Renderer * renderer) {
     SDL_Rect destRect;
     if (background == NULL){
-        background = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/bg.png", renderer);
+        background = TextureManager::loadTexture("res/bg.png", renderer);
     }
     destRect.w = 800;
     destRect.h = 600;

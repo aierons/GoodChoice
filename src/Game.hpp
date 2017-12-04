@@ -19,8 +19,11 @@ class Game {
 	bool ifEnemyGotHIt(int enemyindex);
 	void ifPlayerDies(int enemyIndex);
 	void ifHitClone(int enemyIndex);
+	void updateEnemies();
 	void updateNormalEnemies();
 	void updateCloneEnemies();
+	void updateBullets();
+	void render_background(SDL_Renderer * renderer);
 	void load();
     void reset();
     void render();
