@@ -27,16 +27,19 @@ void CloneEnemy::updatePosition(Player player) {
 void CloneEnemy::render(SDL_Renderer * renderer) {
 	SDL_Texture * enemyTex;
 	SDL_Rect destRect;
-
-	enemyTex = TextureManager::loadTexture("res/clone.png", renderer);
-	destRect.w = 30;
-	destRect.h = 30;
+    if (direction == RIGHT) {
+        enemyTex = TextureManager::loadTexture("res/cloneRight.png", renderer);
+    }
+    else {
+        enemyTex = TextureManager::loadTexture("res/cloneLeft.png", renderer);
+    }
+	destRect.w = 32;
+	destRect.h = 32;
 
 	destRect.x = position.getX();
-	destRect.y = 600 - position.getY();
+	destRect.y = 600 - position.getY() + 5;
 
 	SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
 	SDL_DestroyTexture(enemyTex);
 }
-
 
