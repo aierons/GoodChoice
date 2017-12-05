@@ -31,5 +31,6 @@ protected:
 	int lifetime;
 	int width = 7;
 	int height = 7;
+	SDL_Texture * texture = NULL;
 };
 #endif
