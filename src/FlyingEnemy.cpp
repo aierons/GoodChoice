@@ -1,6 +1,11 @@
 #include "FlyingEnemy.hpp"
 
-FlyingEnemy::FlyingEnemy(Vector s, Vector e) : Enemy(s, e) {}
+FlyingEnemy::FlyingEnemy(Vector s){
+    start = s;
+    direction = true;
+    position = s;
+    velocity = Vector(1, 0);
+}
 
 void FlyingEnemy::update(Player player) {
 
@@ -34,10 +39,10 @@ void FlyingEnemy::render(SDL_Renderer * renderer) {
     SDL_Rect destRect;
     
     if (direction == RIGHT) {
-        enemyTex = TextureManager::loadTexture("res/flyingRight.png", renderer);
+        enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/flyingRight.png", renderer);
     }
     else {
-        enemyTex = TextureManager::loadTexture("res/flyingLeft.png", renderer);
+        enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/flyingLeft.png", renderer);
     }
     destRect.w = 40;
     destRect.h = 40;
