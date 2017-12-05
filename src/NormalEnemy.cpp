@@ -2,6 +2,8 @@
 #include "NormalEnemy.hpp"
 
 NormalEnemy::NormalEnemy(Vector s, Vector e) : Enemy(s, e) {}
+
+NormalEnemy::NormalEnemy(Platform p, Vector spawn, bool d) : Enemy(p, spawn, d){}
  
 void NormalEnemy::update(Player player) {
     if (direction) {
