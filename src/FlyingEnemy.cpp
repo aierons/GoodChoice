@@ -1,16 +1,14 @@
 #include "FlyingEnemy.hpp"
-
 FlyingEnemy::FlyingEnemy(Vector s){
     start = s;
-    direction = true;
+    direction = RIGHT;
     position = s;
     velocity = Vector(1, 0);
+    upAndDown = 0;
 }
 
 void FlyingEnemy::update(Player player) {
-
     updatePosition(player);
-    updateDirection();
 }
 
 void FlyingEnemy::updatePosition(Player player) {
@@ -18,21 +16,27 @@ void FlyingEnemy::updatePosition(Player player) {
     int y = (int) this->position.getY();
     int x2 = (int) player.position.getX();
     int y2 = (int) player.position.getY();
-    Vector slope = Vector((x2 - x) / 15, (y2 - y) / 15);
-
-	if (player.isIdle()) {
-		// still gotta move if it is idle
-	}
-	else {
-		if (this->position.getX() > player.position.getX()) {
-			this->position += slope;
+    Vector slope = Vector((x2 - x) / 25, (y2 - y) / 25);
+    Vector inverse_slope = Vector((x2 - x) / 25, (y2 - y) / 25) * -1;
+    if (player.isIdle()) {
+        if (this->position.getX() <= player.position.getX()) {
+            this->position += slope / 5;
             direction = RIGHT;
-		}
-		else {
-			this->position -= slope * -1;
-		}
-	}
-
+        }
+        else {
+            this->position -= inverse_slope / 5;
+            direction = LEFT;
+        }
+    } else {
+        if (this->position.getX() <= player.position.getX()) {
+            this->position += slope;
+            direction = RIGHT;
+        }
+        else {
+            this->position -= inverse_slope;
+            direction = LEFT;
+        }
+    }
 }
 void FlyingEnemy::render(SDL_Renderer * renderer) {
     SDL_Texture * enemyTex;
@@ -53,5 +57,4 @@ void FlyingEnemy::render(SDL_Renderer * renderer) {
     SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
 	SDL_DestroyTexture(enemyTex);
 }
-
 
