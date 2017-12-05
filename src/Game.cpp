@@ -41,14 +41,15 @@ Game::Game() {
     
     for (int i = 0; i <= maxLevels; i++) {
         levels.push_back(Level());
+		levels[i].platforms = vector<Platform>();
+		levels[i].pBullets = vector<PlatformBullet>();
+		levels[i].eBullets = vector<EnemyBullet>();
+		levels[i].normalEnemies = vector<NormalEnemy>();
+		levels[i].flyingenemies = vector<FlyingEnemy>();
+		levels[i].cloneEnemies = vector<CloneEnemy>();
     }
     player = new Player();
-    levels[0].platforms = vector<Platform>();
-    levels[0].pBullets = vector<PlatformBullet>();
-    levels[0].eBullets = vector<EnemyBullet>();
-    levels[0].normalEnemies = vector<NormalEnemy>();
-    levels[0].flyingenemies = vector<FlyingEnemy>();
-    levels[0].cloneEnemies = vector<CloneEnemy>();
+    
     levels[0].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
     levels[0].platforms.push_back(Platform(Vector(300, 150), Vector(400, 180)));
     levels[0].platforms.push_back(Platform(Vector(400, 250), Vector(500, 300)));
@@ -81,13 +82,25 @@ Game::Game() {
     
     levels[1].goal = new Goal(Vector(550, 500));
     
+	//Level 3
     levels[2].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
     
     levels[2].platforms.push_back(Platform(Vector(50, 120), Vector(70, 450)));
     
     levels[2].platforms.push_back(Platform(Vector(70, 420), Vector(170, 440)));
+
+	levels[2].platforms.push_back(Platform(Vector(120, 220), Vector(200, 240)));
+	levels[2].cloneEnemies.push_back(CloneEnemy(levels[2].platforms[3], Vector(110, 240), true));
+
+	levels[2].platforms.push_back(Platform(Vector(420, 120), Vector(520, 140), false));
+	levels[2].platforms.push_back(Platform(Vector(420, 220), Vector(520, 240), false));
+	levels[2].platforms.push_back(Platform(Vector(420, 320), Vector(520, 340), false));
+	levels[2].platforms.push_back(Platform(Vector(420, 420), Vector(520, 440), false));
     
     levels[2].normalEnemies.push_back(NormalEnemy(Vector(50, 450), Vector(70, 450)));
+
+	levels[2].flyingenemies.push_back(FlyingEnemy(Vector(50, 450), Vector(50, 450)));
+	levels[2].flyingenemies.push_back(FlyingEnemy(Vector(450, 450), Vector(450, 450)));
     
     levels[2].goal = new Goal(Vector(50, 500));
     
@@ -136,7 +149,7 @@ Game::~Game() {
     delete keys;
     for (int i = 0; i < levels.size(); i++) {
         //if there is a level without a goal this will cause an issue
-        delete levels[0].goal;
+        delete levels[i].goal;
         //this might cause an issue ---- if so, try doing begin + i. I don't know if erase slides stuff over or not
         levels.erase(levels.begin());
     }
