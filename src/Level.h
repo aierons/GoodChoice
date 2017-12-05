@@ -9,6 +9,7 @@
 #include "NormalEnemy.hpp"
 #include "FlyingEnemy.hpp"
 #include "cloneEnemy.h"
+#include "InvincibleEnemy.hpp"
 
 struct Level {
 public:
@@ -18,6 +19,7 @@ public:
 	vector<NormalEnemy> normalEnemies;
 	vector<FlyingEnemy> flyingenemies;
 	vector<CloneEnemy> cloneEnemies;
+    vector<InvincibleEnemy> invincibles;
 	Goal * goal;
 };
 #endif
