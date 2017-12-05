@@ -4,7 +4,7 @@ FlyingEnemy::FlyingEnemy(Vector s){
     direction = RIGHT;
     position = s;
     velocity = Vector(1, 0);
-    upAndDown = 0;
+    //upAndDown = 0;
 }
 
 void FlyingEnemy::update(Player player) {

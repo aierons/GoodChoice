@@ -32,7 +32,7 @@ bool pressed = false;
 
 vector<Level> levels;
 int levelCount;
-const int maxLevels = 2;
+const int maxLevels = 3;
 const int bulletMax = 5;
 
 /*
@@ -114,6 +114,10 @@ Game::Game() {
     levels[2].flyingenemies.push_back(FlyingEnemy(Vector(450, 450)));
     
     levels[2].goal = new Goal(Vector(50, 500));
+
+	//level 4
+
+	levels[3].goal = new Goal(Vector(500, 500));
     
     
     load();
@@ -462,7 +466,6 @@ void Game::render() {
     }
     for (InvincibleEnemy em : invincibles) {
         em.render(renderer);
-        cout << " got it";
     }
     
     goal->render(renderer);

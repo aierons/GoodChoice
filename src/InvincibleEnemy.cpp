@@ -29,7 +29,6 @@ void InvincibleEnemy::render(SDL_Renderer * renderer) {
     else{
         enemyTex = TextureManager::loadTexture("res/invincibleLeft.png", renderer);
     }
-    cout << "got it" << endl;
     destRect.w = 60;
     destRect.h = 60;
     
