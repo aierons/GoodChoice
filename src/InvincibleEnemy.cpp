@@ -24,10 +24,10 @@ void InvincibleEnemy::render(SDL_Renderer * renderer) {
     SDL_Rect destRect;
     
     if (direction == RIGHT) {
-        enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/works/works/invincibleRight.png", renderer);
+        enemyTex = TextureManager::loadTexture("res/invincibleRight.png", renderer);
     }
     else{
-        enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/works/works/invincibleLeft.png", renderer);
+        enemyTex = TextureManager::loadTexture("res/invincibleLeft.png", renderer);
     }
     cout << "got it" << endl;
     destRect.w = 60;
