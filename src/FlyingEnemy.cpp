@@ -39,10 +39,10 @@ void FlyingEnemy::render(SDL_Renderer * renderer) {
     
     if (texture == NULL){
         if (direction == RIGHT) {
-            texture = TextureManager::loadTexture("/Users/ChrisRisley/Desktop/fk/fk/res/flyingRight.png", renderer);
+            texture = TextureManager::loadTexture("res/flyingRight.png", renderer);
         }
         else{
-            texture = TextureManager::loadTexture("/Users/ChrisRisley/Desktop/fk/fk/res/flyingLeft.png", renderer);
+            texture = TextureManager::loadTexture("res/flyingLeft.png", renderer);
         }
     }
     destRect.w = 50;
