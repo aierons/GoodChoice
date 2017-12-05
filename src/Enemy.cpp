@@ -58,23 +58,23 @@ void Enemy::updatePosition(Player player) {
     position += velocity;
 }
 void Enemy::render(SDL_Renderer * renderer) {
-    SDL_Texture * enemyTex;
     SDL_Rect destRect;
     
+    if (texture == NULL){
     if (direction == RIGHT) {
-        enemyTex = TextureManager::loadTexture("res/enemyRight.png", renderer);
+        texture = TextureManager::loadTexture("/Users/ChrisRisley/Desktop/fk/fk/res/enemyRight.png", renderer);
     }
     else{
-        enemyTex = TextureManager::loadTexture("res/enemyLeft.png", renderer);
+        texture = TextureManager::loadTexture("/Users/ChrisRisley/Desktop/fk/fk/res/enemyLeft.png", renderer);
+    }
     }
     destRect.w = 50;
     destRect.h = 50;
     
-    destRect.x = position.getX();
+    destRect.x = position.getX() - 5;
     destRect.y = 600 - position.getY();
     
-    SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
-    SDL_DestroyTexture(enemyTex);
+    SDL_RenderCopy(renderer, texture, NULL, &destRect);
 }
 
 
@@ -95,4 +95,8 @@ bool Enemy::collides(Vector point) {
     else {
         return false;
     }
+}
+
+void Enemy::deleteTexture(){
+    SDL_DestroyTexture(texture);
 }
