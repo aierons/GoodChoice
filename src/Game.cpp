@@ -154,6 +154,30 @@ Game::~Game() {
         //this might cause an issue ---- if so, try doing begin + i. I don't know if erase slides stuff over or not
         levels.erase(levels.begin());
     }
+    
+        for (Platform platform : platforms) {
+        platform.deleteTexture();
+    }
+    
+    for (int count = 0; count < pBullets.size(); count++) {
+        pBullets[count].deleteTexture();
+    }
+    
+    for (int count = 0; count < eBullets.size(); count++) {
+        eBullets[count].deleteTexture();
+    }
+    
+    for (FlyingEnemy em : flyingenemies) {
+        em.deleteTexture();
+    }
+    
+    for (Enemy em : normalEnemies) {
+        em.deleteTexture();
+    }
+    
+    for (CloneEnemy em : cloneEnemies) {
+        em.deleteTexture();
+    }
 }
 
 /*
@@ -381,7 +405,7 @@ void Game::update() {
 void Game::render_background(SDL_Renderer * renderer) {
     SDL_Rect destRect;
     if (background == NULL){
-        background = TextureManager::loadTexture("res/bg.png", renderer);
+        background = TextureManager::loadTexture("/Users/ChrisRisley/Desktop/fk/fk/res/bg.png", renderer);
     }
     destRect.w = 800;
     destRect.h = 600;
@@ -426,8 +450,6 @@ void Game::render() {
     for (CloneEnemy em : cloneEnemies) {
         em.render(renderer);
     }
-    goal->render(renderer);
-    
     goal->render(renderer);
     
     SDL_RenderPresent(renderer);
