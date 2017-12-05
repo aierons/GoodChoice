@@ -155,11 +155,11 @@ void Player::render(SDL_Renderer * renderer) {
   SDL_Rect destRect;
 
   playerTex = TextureManager::loadTexture("res/player.png", renderer);
-  destRect.w = 23;
+  destRect.w = 32;
   destRect.h = 32;
 
   destRect.x = position.getX();
-  destRect.y = 600 - position.getY();
+  destRect.y = 600 - position.getY() + 5;
 
   SDL_RenderCopy(renderer, playerTex, NULL, &destRect);
   SDL_DestroyTexture(playerTex);
