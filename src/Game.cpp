@@ -8,6 +8,7 @@
 #include "NormalEnemy.hpp"
 #include "FlyingEnemy.hpp"
 #include "CloneEnemy.h"
+#include "InvincibleEnemy.hpp"
 #include "Level.h"
 
 #include <vector>
@@ -22,6 +23,7 @@ vector<EnemyBullet> eBullets;
 vector<NormalEnemy> normalEnemies;
 vector<FlyingEnemy> flyingenemies;
 vector<CloneEnemy> cloneEnemies;
+vector<InvincibleEnemy> invincibles;
 SDL_Texture * background = NULL;
 
 
@@ -48,6 +50,7 @@ Game::Game() {
         levels[i].normalEnemies = vector<NormalEnemy>();
         levels[i].flyingenemies = vector<FlyingEnemy>();
         levels[i].cloneEnemies = vector<CloneEnemy>();
+        levels[i].invincibles = vector<InvincibleEnemy>();
     }
     player = new Player();
     
@@ -59,6 +62,10 @@ Game::Game() {
     levels[0].platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
     levels[0].normalEnemies.push_back(NormalEnemy(Vector(levels[0].platforms[0].getStartX(), levels[0].platforms[0].getEndY() +10), Vector(levels[0].platforms[0].getEndX(), levels[0].platforms[0].getEndY())));
     levels[0].normalEnemies.push_back(NormalEnemy(Vector(levels[0].platforms[3].getStartX(), levels[0].platforms[3].getEndY() +10), Vector(levels[0].platforms[3].getEndX(), levels[0].platforms[3].getEndY())));
+    
+    //test invincibles (delete after )
+    levels[0].invincibles.push_back(InvincibleEnemy(Vector(levels[0].platforms[3].getStartX(), levels[0].platforms[3].getEndY() +10), Vector(levels[0].platforms[3].getEndX(), levels[0].platforms[3].getEndY())));
+
     
     levels[0].goal = new Goal(Vector(250, 500));
     
@@ -83,31 +90,31 @@ Game::Game() {
     
     levels[1].goal = new Goal(Vector(550, 500));
     
-	//Level 3
-	levels[2].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
-
-	levels[2].platforms.push_back(Platform(Vector(40, 120), Vector(70, 150)));
-	levels[2].platforms.push_back(Platform(Vector(40, 220), Vector(70, 250)));
-	levels[2].platforms.push_back(Platform(Vector(40, 320), Vector(70, 350)));
-	levels[2].platforms.push_back(Platform(Vector(40, 420), Vector(70, 450)));
-
-	levels[2].platforms.push_back(Platform(Vector(70, 420), Vector(170, 440)));
-
-	levels[2].platforms.push_back(Platform(Vector(100, 220), Vector(200, 240)));
-	levels[2].cloneEnemies.push_back(CloneEnemy(levels[2].platforms[5], Vector(120, 240), true));
-
-	levels[2].platforms.push_back(Platform(Vector(420, 120), Vector(520, 140), false));
-	levels[2].platforms.push_back(Platform(Vector(420, 220), Vector(520, 240), false));
-	levels[2].platforms.push_back(Platform(Vector(420, 320), Vector(520, 340), false));
-	levels[2].platforms.push_back(Platform(Vector(420, 420), Vector(520, 440), false));
-
-	levels[2].normalEnemies.push_back(NormalEnemy(Vector(50, 450), Vector(70, 450)));
-
-	levels[2].flyingenemies.push_back(FlyingEnemy(Vector(50, 450)));
-	levels[2].flyingenemies.push_back(FlyingEnemy(Vector(450, 450)));
-
-	levels[2].goal = new Goal(Vector(50, 500));
-
+    //Level 3
+    levels[2].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
+    
+    levels[2].platforms.push_back(Platform(Vector(40, 120), Vector(70, 150)));
+    levels[2].platforms.push_back(Platform(Vector(40, 220), Vector(70, 250)));
+    levels[2].platforms.push_back(Platform(Vector(40, 320), Vector(70, 350)));
+    levels[2].platforms.push_back(Platform(Vector(40, 420), Vector(70, 450)));
+    
+    levels[2].platforms.push_back(Platform(Vector(70, 420), Vector(170, 440)));
+    
+    levels[2].platforms.push_back(Platform(Vector(100, 220), Vector(200, 240)));
+    levels[2].cloneEnemies.push_back(CloneEnemy(levels[2].platforms[5], Vector(120, 240), true));
+    
+    levels[2].platforms.push_back(Platform(Vector(420, 120), Vector(520, 140), false));
+    levels[2].platforms.push_back(Platform(Vector(420, 220), Vector(520, 240), false));
+    levels[2].platforms.push_back(Platform(Vector(420, 320), Vector(520, 340), false));
+    levels[2].platforms.push_back(Platform(Vector(420, 420), Vector(520, 440), false));
+    
+    levels[2].normalEnemies.push_back(NormalEnemy(Vector(50, 450), Vector(70, 450)));
+    
+    levels[2].flyingenemies.push_back(FlyingEnemy(Vector(50, 450)));
+    levels[2].flyingenemies.push_back(FlyingEnemy(Vector(450, 450)));
+    
+    levels[2].goal = new Goal(Vector(50, 500));
+    
     
     load();
 }
@@ -116,7 +123,7 @@ void Game::load() {
     if (levelCount > maxLevels) {
         levelCount = maxLevels;
     }
-	delete player;
+    delete player;
     player = new Player();
     goal = levels[levelCount].goal;
     platforms = levels[levelCount].platforms;
@@ -125,6 +132,7 @@ void Game::load() {
     normalEnemies = levels[levelCount].normalEnemies;
     flyingenemies = levels[levelCount].flyingenemies;
     cloneEnemies = levels[levelCount].cloneEnemies;
+    invincibles = levels[levelCount].invincibles;
     Bullet::count = 0;
 }
 void Game::reset() {
@@ -237,25 +245,25 @@ void Game::updateEnemies(){
     if (!cloneEnemies.empty()) {
         updateCloneEnemies();
     }
-
+    
     for (int i = 0; i < flyingenemies.size(); i++){
         flyingenemies[i].update(*player);
         
         if (flyingenemies[i].collides(player->position)){
             reset();
         }
-		else {
-			for (int k = 0; k < eBullets.size(); k++) {
-				EnemyBullet bullet = eBullets.at(k);
-				if (flyingenemies[i].collides(bullet.getPosition())) {
-					flyingenemies.erase(flyingenemies.begin() + i);
-					eBullets.erase(eBullets.begin() + k);
-					k--;
-					Bullet::count--;
-					break;
-				}
-			}
-		}
+        else {
+            for (int k = 0; k < eBullets.size(); k++) {
+                EnemyBullet bullet = eBullets.at(k);
+                if (flyingenemies[i].collides(bullet.getPosition())) {
+                    flyingenemies.erase(flyingenemies.begin() + i);
+                    eBullets.erase(eBullets.begin() + k);
+                    k--;
+                    Bullet::count--;
+                    break;
+                }
+            }
+        }
     }
     
 }
@@ -307,9 +315,9 @@ bool Game::ifEnemyGotHIt(int enemyIndex) {
         EnemyBullet bullet = eBullets.at(k);
         if (normalEnemies[enemyIndex].collides(bullet.getPosition())) {
             //toDelete.push_back(k);
-			eBullets.erase(eBullets.begin() + k);
-			k--;
-			Bullet::count--;
+            eBullets.erase(eBullets.begin() + k);
+            k--;
+            Bullet::count--;
             gotHit = true;
         }
     }
@@ -345,7 +353,7 @@ void Game::updateNormalEnemies() {
 
 void Game::updateCloneEnemies() {
     for (int i = 0; i < cloneEnemies.size(); i++) {
-	    if (cloneEnemies[i].collides(player->position)) {
+        if (cloneEnemies[i].collides(player->position)) {
             reset();
         }
         cloneEnemies[i].update(*player);
@@ -362,7 +370,7 @@ void Game::ifHitClone(int enemyIndex) {
                 cloneEnemies[enemyIndex].hasCloned = true;
                 cloneEnemies[enemyIndex + 1].hasCloned = true;
                 pBullets.erase(pBullets.begin() + k);
-				Bullet::count--;
+                Bullet::count--;
             }
         }
     }
@@ -372,7 +380,7 @@ void Game::ifHitClone(int enemyIndex) {
         if (cloneEnemies[enemyIndex].collides(b.getPosition())) {
             cloneEnemies.erase(cloneEnemies.begin() + enemyIndex);
             eBullets.erase(eBullets.begin() + j);
-			Bullet::count--;
+            Bullet::count--;
             break;
         }
     }
@@ -387,6 +395,13 @@ void Game::update() {
     }
     player->update(keys, platforms);
     updateEnemies();
+
+    for (int i = 0; i < invincibles.size(); i++) {
+        if (invincibles[i].collides(player->position)) {
+            reset();
+        }
+        invincibles[i].update(*player);
+    }
     updateBullets();
     if (keys->hasKeyCode(SDLK_ESCAPE)) {
         reset();
@@ -445,6 +460,11 @@ void Game::render() {
     for (CloneEnemy em : cloneEnemies) {
         em.render(renderer);
     }
+    for (InvincibleEnemy em : invincibles) {
+        em.render(renderer);
+        cout << " got it";
+    }
+    
     goal->render(renderer);
     
     goal->render(renderer);
