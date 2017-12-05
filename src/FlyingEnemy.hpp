@@ -13,12 +13,12 @@
 
 class FlyingEnemy : public Enemy {
 public:
-    FlyingEnemy(Vector start, Vector end);
+    FlyingEnemy(Vector start);
     virtual void render(SDL_Renderer * renderer);
     virtual void updatePosition(Player player);
     virtual void update(Player player);
 };
 
 
-#endif /* NormalEnemy_hpp */
+#endif 
 
