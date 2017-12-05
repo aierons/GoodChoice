@@ -60,10 +60,10 @@ void Enemy::render(SDL_Renderer * renderer) {
     SDL_Rect destRect;
     
     if (direction == RIGHT) {
-        enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/enemyRight.png", renderer);
+        enemyTex = TextureManager::loadTexture("res/enemyRight.png", renderer);
     }
     else{
-        enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/enemyLeft.png", renderer);
+        enemyTex = TextureManager::loadTexture("res/enemyLeft.png", renderer);
     }
     destRect.w = 50;
     destRect.h = 50;
