@@ -1,1 +1,14 @@
-
+Running The Project:
+  Run 'CS3520 Final Project.exe'.
+  
+Running Tests:
+  
+Interacting With The Project:
+  'A' and 'S' - move left or right
+  'W' - jump
+  
+  'left click' - shoot enemy bullets to kill enemies
+  'right click' - shoot platform bullets to reveal hidden platforms
+  The bullets will go in the direction that the mouse was pointing
+  
+  In each level, the player must reach the goal which is the yellow flag
