@@ -13,6 +13,7 @@
 class NormalEnemy : public Enemy {
 public:
     NormalEnemy(Vector start, Vector end);
+    NormalEnemy(Platform p, Vector spawn, bool d);
     virtual void render(SDL_Renderer * renderer);
     virtual void updatePosition(Player player);
     virtual void update(Player player);
