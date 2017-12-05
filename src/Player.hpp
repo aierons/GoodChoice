@@ -30,6 +30,7 @@ class Player {
     bool isIdle();
     void render(SDL_Renderer * renderer);
     Vector position;
+     void deleteTexture();
 
   private:
     Vector velocity;
