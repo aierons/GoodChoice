@@ -31,6 +31,7 @@ bool pressed = false;
 vector<Level> levels;
 int levelCount;
 const int maxLevels = 2;
+const int bulletMax = 5;
 
 /*
  * This constructor will initialize the Player, KeyPressed, and platforms
@@ -203,12 +204,12 @@ void Game::handleEvents() {
         default:
             break;
     }
-    if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+    if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT && Bullet::count <=bulletMax) {
         eBullets.push_back(EnemyBullet(player->position + Vector(7, 14),
                                        Bullet::getInitialVector(player->position + Vector(14, -14),
                                                                 Vector(event.button.x, 600 - event.button.y))));
     }
-    if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_RIGHT) {
+    if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_RIGHT && Bullet::count <= bulletMax) {
         pBullets.push_back(PlatformBullet(player->position + Vector(7, 14),
                                           Bullet::getInitialVector(player->position + Vector(14, -14),
                                                                    Vector(event.button.x, 600 - event.button.y))));
@@ -254,11 +255,13 @@ void Game::updateBullets(){
         bool exists = true;
         if (!pBullets[count].isAlive()) {
             pBullets.erase(pBullets.begin() + count);
+			Bullet::count--;
             exists = false;
         }
         for (int i = 0; i < platforms.size() && exists; i++) {
             if (pBullets[count].collidesWithPlatform(platforms[i])) {
                 pBullets.erase(pBullets.begin() + count);
+				Bullet::count--;
                 exists = false;
             }
         }
@@ -268,11 +271,13 @@ void Game::updateBullets(){
         bool exists = true;
         if (!eBullets[count].isAlive()) {
             eBullets.erase(eBullets.begin() + count);
+			Bullet::count--;
             exists = false;
         }
         for (int i = 0; i < platforms.size() && exists; i++) {
             if (eBullets[count].collidesWithPlatform(platforms[i])) {
                 eBullets.erase(eBullets.begin() + count);
+				Bullet::count--;
                 exists = false;
             }
         }

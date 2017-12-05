@@ -22,6 +22,8 @@ public:
 
 	virtual Vector getPosition();
 
+	static int count;
+
 protected:
 	bool alive;
 	Vector position;

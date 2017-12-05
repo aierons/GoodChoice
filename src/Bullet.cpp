@@ -1,6 +1,9 @@
 #include "Bullet.h"
 
+int Bullet::count = 0;
+
 Bullet::Bullet(Vector pos, Vector vel) {
+	Bullet::count++;
   position = pos;
   velocity = vel;
   lifetime = 100; //could be anything, just a dummy value for now
