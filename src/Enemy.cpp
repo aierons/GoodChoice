@@ -1,5 +1,3 @@
-#include "Enemy.h"
-
 Enemy::Enemy(Vector s, Vector e) {
     start = s;
     end = e;
@@ -7,6 +5,16 @@ Enemy::Enemy(Vector s, Vector e) {
     position = s;
     velocity = Vector(1, 0);
     acceleration = Vector(0, 0);
+}
+
+Enemy::Enemy(Platform p, Vector spawn, bool d){
+    start = Vector(p.getStartX(), p.getEndY());
+    end = Vector(p.getEndX(), p.getEndY());
+    direction = d;
+    position = spawn;
+    velocity = Vector(1, 0);
+    acceleration = Vector(0, 0);
+    platform = p;
 }
 Enemy::Enemy() {
 	start = Vector(1, 0);
@@ -52,10 +60,10 @@ void Enemy::render(SDL_Renderer * renderer) {
     SDL_Rect destRect;
     
     if (direction == RIGHT) {
-        enemyTex = TextureManager::loadTexture("res/enemyRight.png", renderer);
+        enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/enemyRight.png", renderer);
     }
     else{
-        enemyTex = TextureManager::loadTexture("res/enemyLeft.png", renderer);
+        enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/enemyLeft.png", renderer);
     }
     destRect.w = 50;
     destRect.h = 50;
@@ -69,10 +77,10 @@ void Enemy::render(SDL_Renderer * renderer) {
 
 
 void Enemy::updateDirection() {
-    if (position.getX() <= start.getX() && !direction) {
+    if (position.getX() < start.getX() && !direction) {
         direction = true;
     }
-    else if (position.getX() >= end.getX() && direction) {
+    else if (position.getX() > end.getX() && direction) {
         direction = false;
     }
 }
