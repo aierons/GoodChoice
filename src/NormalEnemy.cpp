@@ -18,16 +18,18 @@ void NormalEnemy::updatePosition(Player player) {
     position += velocity;
 }
 void NormalEnemy::render(SDL_Renderer * renderer) {
-    SDL_Texture * enemyTex;
     SDL_Rect destRect;
 
-    enemyTex = TextureManager::loadTexture("res/enemy.png", renderer);
+    if (texture == NULL){
+    texture = TextureManager::loadTexture("res/enemy.png", renderer);
+    }
     destRect.w = 100;
     destRect.h = 100;
 
     destRect.x = position.getX();
     destRect.y = 600 - position.getY();
 
-    SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
-    SDL_DestroyTexture(enemyTex);
+    SDL_RenderCopy(renderer, texture, NULL, &destRect);
+    
+    
 }
