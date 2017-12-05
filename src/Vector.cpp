@@ -72,6 +72,10 @@ Vector Vector::operator+(const Vector& v1) const {
   return Vector(m_x + v1.m_x, m_y + v1.m_y);
 }
 
+Vector Vector::operator-() const {
+	return Vector(-m_x, -m_y);
+}
+
 Vector& Vector::operator+=(const Vector& v1) {
   m_x += v1.m_x;
   m_y += v1.m_y;

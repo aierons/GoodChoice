@@ -37,15 +37,15 @@ public:
   Vector& operator=(const Vector& v1);
   bool operator==(const Vector& v1);
   bool operator!=(const Vector& v1);
-  Vector& operator-();
-  Vector& operator+(const Vector& v1);
+  Vector operator-() const;
+  Vector operator+(const Vector& v1) const;
   Vector& operator+=(const Vector& v1);
-  Vector& operator-(const Vector& v1);
+  Vector operator-(const Vector& v1) const;
   Vector& operator-=(const Vector& v1);
-  Vector& operator*(double d);
+  Vector operator*(double d) const;
   friend Vector& operator*(double d, const Vector& v);
   Vector& operator*=(double d);
-  Vector& operator/(double d);
+  Vector operator/(double d) const;
   Vector& operator/=(double d);
 
 private:

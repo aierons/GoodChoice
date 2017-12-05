@@ -83,27 +83,31 @@ Game::Game() {
     
     levels[1].goal = new Goal(Vector(550, 500));
     
-    //Level 3
-    levels[2].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
-    
-    levels[2].platforms.push_back(Platform(Vector(50, 120), Vector(70, 450)));
-    
-    levels[2].platforms.push_back(Platform(Vector(70, 420), Vector(170, 440)));
-    
-    levels[2].platforms.push_back(Platform(Vector(120, 220), Vector(200, 240)));
-    levels[2].cloneEnemies.push_back(CloneEnemy(levels[2].platforms[3], Vector(110, 240), true));
-    
-    levels[2].platforms.push_back(Platform(Vector(420, 120), Vector(520, 140), false));
-    levels[2].platforms.push_back(Platform(Vector(420, 220), Vector(520, 240), false));
-    levels[2].platforms.push_back(Platform(Vector(420, 320), Vector(520, 340), false));
-    levels[2].platforms.push_back(Platform(Vector(420, 420), Vector(520, 440), false));
-    
-    levels[2].normalEnemies.push_back(NormalEnemy(Vector(50, 450), Vector(70, 450)));
-    
-    levels[2].flyingenemies.push_back(FlyingEnemy(Vector(50, 450)));
-    levels[2].flyingenemies.push_back(FlyingEnemy(Vector(450, 450)));
-    
-    levels[2].goal = new Goal(Vector(50, 500));
+	//Level 3
+	levels[2].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
+
+	levels[2].platforms.push_back(Platform(Vector(40, 120), Vector(70, 150)));
+	levels[2].platforms.push_back(Platform(Vector(40, 220), Vector(70, 250)));
+	levels[2].platforms.push_back(Platform(Vector(40, 320), Vector(70, 350)));
+	levels[2].platforms.push_back(Platform(Vector(40, 420), Vector(70, 450)));
+
+	levels[2].platforms.push_back(Platform(Vector(70, 420), Vector(170, 440)));
+
+	levels[2].platforms.push_back(Platform(Vector(100, 220), Vector(200, 240)));
+	levels[2].cloneEnemies.push_back(CloneEnemy(levels[2].platforms[5], Vector(120, 240), true));
+
+	levels[2].platforms.push_back(Platform(Vector(420, 120), Vector(520, 140), false));
+	levels[2].platforms.push_back(Platform(Vector(420, 220), Vector(520, 240), false));
+	levels[2].platforms.push_back(Platform(Vector(420, 320), Vector(520, 340), false));
+	levels[2].platforms.push_back(Platform(Vector(420, 420), Vector(520, 440), false));
+
+	levels[2].normalEnemies.push_back(NormalEnemy(Vector(50, 450), Vector(70, 450)));
+
+	levels[2].flyingenemies.push_back(FlyingEnemy(Vector(50, 450)));
+	levels[2].flyingenemies.push_back(FlyingEnemy(Vector(450, 450)));
+
+	levels[2].goal = new Goal(Vector(50, 500));
+
     
     load();
 }

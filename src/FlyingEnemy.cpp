@@ -29,7 +29,7 @@ void FlyingEnemy::updatePosition(Player player) {
             direction = RIGHT;
 		}
 		else {
-			this->position -= -1 * slope;
+			this->position -= slope * -1;
 		}
 	}
 
