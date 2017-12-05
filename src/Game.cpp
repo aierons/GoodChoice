@@ -345,6 +345,9 @@ void Game::updateNormalEnemies() {
 
 void Game::updateCloneEnemies() {
     for (int i = 0; i < cloneEnemies.size(); i++) {
+	    if (cloneEnemies[i].collides(player->position)) {
+            reset();
+        }
         cloneEnemies[i].update(*player);
         this->ifHitClone(i);
     }
