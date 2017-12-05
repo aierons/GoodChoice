@@ -245,6 +245,8 @@ void Game::updateEnemies(){
 				EnemyBullet bullet = eBullets.at(k);
 				if (flyingenemies[i].collides(bullet.getPosition())) {
 					flyingenemies.erase(flyingenemies.begin() + i);
+					eBullets.erase(eBullets.begin() + k);
+					k--;
 				}
 			}
 		}
