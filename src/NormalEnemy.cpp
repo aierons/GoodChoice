@@ -21,7 +21,7 @@ void NormalEnemy::render(SDL_Renderer * renderer) {
     SDL_Texture * enemyTex;
     SDL_Rect destRect;
 
-    enemyTex = TextureManager::loadTexture("/Users/wesleyjiang/Desktop/Final/Final/res/enemy.png", renderer);
+    enemyTex = TextureManager::loadTexture("res/enemy.png", renderer);
     destRect.w = 100;
     destRect.h = 100;
 

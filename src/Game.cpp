@@ -303,9 +303,11 @@ void Game::updateNormalEnemies() {
     for (int i = 0; i < normalEnemies.size(); i++) {
         if (this->ifEnemyGotHIt(i)) {
             normalEnemies.erase(normalEnemies.begin() + i);
-        }
-        normalEnemies[i].update(*player);
-        this->ifPlayerDies(i);
+		}
+		else {
+			normalEnemies[i].update(*player);
+			this->ifPlayerDies(i);
+		}
     }
 }
 

@@ -1,3 +1,5 @@
+#include "Enemy.h"
+
 Enemy::Enemy(Vector s, Vector e) {
     start = s;
     end = e;
