@@ -55,38 +55,29 @@ Game::Game() {
     levels[0].platforms.push_back(Platform(Vector(100, 375), Vector(270, 400)));
     
     levels[0].platforms.push_back(Platform(Vector(600, 100), Vector(650, 220), false));
-    for (Platform p : levels[0].platforms) {
-        if (p.isVisible()) {
-            levels[0].normalEnemies.push_back(NormalEnemy(Vector(p.getStartX(), p.getEndY() +10), Vector(p.getEndX(), p.getEndY())));
-        }
-    }
+    levels[0].normalEnemies.push_back(NormalEnemy(Vector(levels[0].platforms[0].getStartX(), levels[0].platforms[0].getEndY() +10), Vector(levels[0].platforms[0].getEndX(), levels[0].platforms[0].getEndY())));
+    levels[0].normalEnemies.push_back(NormalEnemy(Vector(levels[0].platforms[3].getStartX(), levels[0].platforms[3].getEndY() +10), Vector(levels[0].platforms[3].getEndX(), levels[0].platforms[3].getEndY())));
+
     levels[0].goal = new Goal(Vector(250, 500));
     
-    levels[0].flyingenemies.push_back(FlyingEnemy(Vector(300, 150), Vector(400, 180)));
-    
+    // Level 2
     levels[1].platforms.push_back(Platform(Vector(50, 20), Vector(550, 90)));
-    
     levels[1].platforms.push_back(Platform(Vector(450, 170), Vector(650, 220)));
-    
-    levels[1].normalEnemies.push_back(NormalEnemy(Vector(450, 210), Vector(650, 260)));
-    
     levels[1].platforms.push_back(Platform(Vector(50, 170), Vector(250, 220)));
-    
-    levels[1].normalEnemies.push_back(NormalEnemy(Vector(50, 210), Vector(250, 260)));
-    
     levels[1].platforms.push_back(Platform(Vector(450, 420), Vector(650, 470)));
-    
     levels[1].platforms.push_back(Platform(Vector(50, 420), Vector(250, 470)));
-    
-    levels[1].normalEnemies.push_back(NormalEnemy(Vector(450, 460), Vector(650, 510)));
-    
-    levels[1].normalEnemies.push_back(NormalEnemy(Vector(460, 460), Vector(640, 510)));
-    
     levels[1].platforms.push_back(Platform(Vector(250, 290), Vector(450, 340), false));
+
+    vector<Platform> p = levels[1].platforms;
     
-    levels[1].flyingenemies.push_back(FlyingEnemy(Vector(320, 150), Vector(420, 180)));
+    levels[1].normalEnemies.push_back(NormalEnemy(p[0], Vector(p[0].getStartX(), p[0].getEndY()), RIGHT));
+    levels[1].normalEnemies.push_back(NormalEnemy(p[3], Vector(p[3].getStartX() + 100, p[3].getEndY()), RIGHT));
+    levels[1].normalEnemies.push_back(NormalEnemy(p[4], Vector(p[4].getStartX() + 60, p[4].getEndY()), RIGHT));
+
     
-    levels[1].cloneEnemies.push_back(CloneEnemy(levels[0].platforms[0], Vector(levels[0].platforms[0].getStartX(), levels[0].platforms[0].getEndY()), RIGHT));
+    levels[1].flyingenemies.push_back(FlyingEnemy(Vector(220, 300), Vector(420, 180)));
+    levels[1].cloneEnemies.push_back(CloneEnemy(p[1], Vector(p[1].getStartX(), p[1].getEndY()), RIGHT));
+    levels[1].cloneEnemies.push_back(CloneEnemy(p[2], Vector(p[2].getEndX(), p[2].getEndY()), LEFT));
     
     levels[1].goal = new Goal(Vector(550, 500));
     
@@ -234,6 +225,12 @@ void Game::updateEnemies(){
         if (flyingenemies[i].collides(player->position)){
             reset();
         }
+        for (int k = 0; k < eBullets.size(); k++) {
+            EnemyBullet bullet = eBullets.at(k);
+            if (flyingenemies[i].collides(bullet.getPosition())) {
+                flyingenemies.erase(flyingenemies.begin() + i);
+            }
+        }
     }
     
 }
@@ -284,9 +281,9 @@ bool Game::ifEnemyGotHIt(int enemyIndex) {
             gotHit = true;
         }
     }
-    for (int i : toDelete) {
-        eBullets.erase(eBullets.begin() + i);
-    }
+//    for (int i : toDelete) {
+//        eBullets.erase(eBullets.begin() + i);
+//    }
     return gotHit;
 }
 
@@ -303,18 +300,10 @@ void Game::ifPlayerDies(int enemyIndex) {
  * checks if any of the enemies are touching the player, if they are reset the game
  */
 void Game::updateNormalEnemies() {
-    // first check if there is anything to delete to prevent changing the size of the array during iterating throught for loop
-    vector<int> toDelete;
     for (int i = 0; i < normalEnemies.size(); i++) {
         if (this->ifEnemyGotHIt(i)) {
-            toDelete.push_back(i);
+            normalEnemies.erase(normalEnemies.begin() + i);
         }
-    }
-    for (int i : toDelete) {
-        normalEnemies.erase(normalEnemies.begin() + i);
-    }
-    
-    for (int i = 0; i < normalEnemies.size(); i++) {
         normalEnemies[i].update(*player);
         this->ifPlayerDies(i);
     }
@@ -335,7 +324,7 @@ void Game::ifHitClone(int enemyIndex) {
                 cloneEnemies.push_back(CloneEnemy(cloneEnemies[enemyIndex].platform, cloneEnemies[enemyIndex].getPostion(), !cloneEnemies[enemyIndex].facingRight()));
                 cloneEnemies[enemyIndex].hasCloned = true;
                 cloneEnemies[enemyIndex + 1].hasCloned = true;
-                pBullets.erase(pBullets.begin() + k);
+                //pBullets.erase(pBullets.begin() + k);
             }
         }
     }
@@ -344,7 +333,7 @@ void Game::ifHitClone(int enemyIndex) {
         EnemyBullet b = eBullets.at(j);
         if (cloneEnemies[enemyIndex].collides(b.getPosition())) {
             cloneEnemies.erase(cloneEnemies.begin() + enemyIndex);
-            pBullets.erase(pBullets.begin() + j);
+            //pBullets.erase(pBullets.begin() + j);
             break;
         }
     }
