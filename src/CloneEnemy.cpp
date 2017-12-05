@@ -28,10 +28,10 @@ void CloneEnemy::render(SDL_Renderer * renderer) {
 	SDL_Texture * enemyTex;
 	SDL_Rect destRect;
     if (direction == RIGHT) {
-        enemyTex = TextureManager::loadTexture("res/cloneRight.png", renderer);
+        enemyTex = TextureManager::loadTexture("/Users/ChrisRisley/Desktop/fk/fk/res/cloneRight.png", renderer);
     }
     else {
-        enemyTex = TextureManager::loadTexture("res/cloneLeft.png", renderer);
+        enemyTex = TextureManager::loadTexture("/Users/ChrisRisley/Desktop/fk/fk/res/cloneLeft.png", renderer);
     }
 	destRect.w = 32;
 	destRect.h = 32;
@@ -40,6 +40,5 @@ void CloneEnemy::render(SDL_Renderer * renderer) {
 	destRect.y = 600 - position.getY() + 5;
 
 	SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
-	SDL_DestroyTexture(enemyTex);
 }
 
