@@ -40,5 +40,6 @@ void CloneEnemy::render(SDL_Renderer * renderer) {
 	destRect.y = 600 - position.getY() + 5;
 
 	SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
+	SDL_DestroyTexture(enemyTex);
 }
 

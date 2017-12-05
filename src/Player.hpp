@@ -20,23 +20,24 @@ class Player {
     void updateVelocity();
     void updateAcceleration();
     bool isColliding(Platform platform);
-    bool isColliding(Goal goal);
+	bool isColliding(Goal goal);
     void checkColliding(vector<Platform> platforms);
     void update(KeysPressed * keys, vector<Platform> platforms);
-    void deleteTexture();
+
     void moveLeft();
     void moveRight();
     void idle();
-    bool isIdle();
+
+	bool isIdle();
+
     void render(SDL_Renderer * renderer);
-    Vector position;
-     void deleteTexture();
+
+	Vector position;
 
   private:
     Vector velocity;
     Vector acceleration;
     bool isFalling;
-    SDL_Texture * texture = NULL;
 };
 
 #endif

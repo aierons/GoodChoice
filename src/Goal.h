@@ -11,10 +11,8 @@ public:
 	Goal(Vector pos);
 	bool collides(Vector p);
 	void render(SDL_Renderer * renderer);
-	void deleteTexture();
 private:
 	Vector position;
-	SDL_Texture * texture = NULL;
 };
 
 #endif

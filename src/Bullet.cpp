@@ -36,8 +36,3 @@ Vector Bullet::getInitialVector(Vector pVector, Vector mVector) {
 Vector Bullet::getPosition() {
     return position;
 }
-
-void Bullet::deleteTexture(){
-    SDL_DestroyTexture(texture);
-}
-

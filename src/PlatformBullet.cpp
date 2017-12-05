@@ -13,27 +13,21 @@ bool PlatformBullet::collidesWithPlatform(Platform& p) {
 	return false;
 }
 
-
 void PlatformBullet::render(SDL_Renderer* renderer) {
+	SDL_Texture * tex;
 	SDL_Rect destRect;
 
-    if (texture == NULL){
-	texture = TextureManager::loadTexture("res/PlatformBullet.png", renderer);
-    }
+	tex = TextureManager::loadTexture("res/PlatformBullet.png", renderer);
 	destRect.w = width;
 	destRect.h = height;
 
 	destRect.x = position.getX();
 	destRect.y = (630 - destRect.h) - position.getY();
 
-	SDL_RenderCopy(renderer, texture, NULL, &destRect);
+	SDL_RenderCopy(renderer, tex, NULL, &destRect);
+	SDL_DestroyTexture(tex);
 }
-
 
 bool PlatformBullet::collidesWithEnemy(Enemy& e) {
 	return e.collides(position);
-}
-
-void PlatformBullet::deleteTexture(){
-    SDL_DestroyTexture(texture);
 }

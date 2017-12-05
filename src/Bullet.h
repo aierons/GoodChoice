@@ -19,9 +19,10 @@ public:
 	virtual bool collidesWithPlatform(Platform& p) = 0; //alternatively could take in list of platforms
 	virtual bool collidesWithEnemy(Enemy& e) = 0;
 	virtual void render(SDL_Renderer* renderer) = 0;
+
 	virtual Vector getPosition();
+
 	static int count;
-	 void deleteTexture();
 
 protected:
 	bool alive;
@@ -30,6 +31,5 @@ protected:
 	int lifetime;
 	int width = 7;
 	int height = 7;
-	SDL_Texture * texture = NULL;
 };
 #endif

@@ -29,7 +29,6 @@ public:
     virtual void update(Player player);
 	bool facingRight();
 	Vector getPostion();
- void deleteTexture();
     
 protected:
     Platform platform;
@@ -40,8 +39,6 @@ protected:
     Vector end;
     bool direction;
     Vector position;
-	SDL_Texture * texture = NULL;
-
 };
 
 #endif

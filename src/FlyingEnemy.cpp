@@ -35,24 +35,23 @@ void FlyingEnemy::updatePosition(Player player) {
 
 }
 void FlyingEnemy::render(SDL_Renderer * renderer) {
+    SDL_Texture * enemyTex;
     SDL_Rect destRect;
     
-    if (texture == NULL){
-        if (direction == RIGHT) {
-            texture = TextureManager::loadTexture("res/flyingRight.png", renderer);
-        }
-        else{
-            texture = TextureManager::loadTexture("res/flyingLeft.png", renderer);
-        }
+    if (direction == RIGHT) {
+        enemyTex = TextureManager::loadTexture("res/flyingRight.png", renderer);
     }
-    destRect.w = 50;
-    destRect.h = 50;
+    else {
+        enemyTex = TextureManager::loadTexture("res/flyingLeft.png", renderer);
+    }
+    destRect.w = 40;
+    destRect.h = 40;
     
-    destRect.x = position.getX() - 5;
+    destRect.x = position.getX();
     destRect.y = 600 - position.getY();
     
-    SDL_RenderCopy(renderer, texture, NULL, &destRect);
+    SDL_RenderCopy(renderer, enemyTex, NULL, &destRect);
+	SDL_DestroyTexture(enemyTex);
 }
-
 
 

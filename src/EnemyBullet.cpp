@@ -8,18 +8,18 @@ bool EnemyBullet::collidesWithPlatform(Platform& p) {
 }
 
 void EnemyBullet::render(SDL_Renderer* renderer) {
-    
-    SDL_Rect destRect;
-    
-    if (texture == NULL){
-        texture = TextureManager::loadTexture("/Users/ChrisRisley/Desktop/fk/fk/res/EnemyBullet.png", renderer);
-    }
-    destRect.w = width;
-    destRect.h = height;
-    
-    destRect.x = position.getX();
-    destRect.y = (630 - destRect.h) - position.getY();
-    SDL_RenderCopy(renderer, texture, NULL, &destRect);
+	SDL_Texture * tex;
+	SDL_Rect destRect;
+
+	tex = TextureManager::loadTexture("res/EnemyBullet.png", renderer);
+	destRect.w = width;
+	destRect.h = height;
+
+	destRect.x = position.getX();
+	destRect.y = (630 - destRect.h) - position.getY();
+
+	SDL_RenderCopy(renderer, tex, NULL, &destRect);
+	SDL_DestroyTexture(tex);
 }
 
 bool EnemyBullet::collidesWithEnemy(Enemy& e) {

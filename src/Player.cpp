@@ -151,22 +151,16 @@ bool Player::isIdle() {
  * Renders the player onto the given renderer
  */
 void Player::render(SDL_Renderer * renderer) {
+  SDL_Texture * playerTex;
   SDL_Rect destRect;
 
-   if (texture == NULL){
-      
-  texture = TextureManager::loadTexture("res/player.png", renderer);
- }
-  destRect.w = 40;
-  destRect.h = 60;
+  playerTex = TextureManager::loadTexture("res/player.png", renderer);
+  destRect.w = 32;
+  destRect.h = 32;
 
   destRect.x = position.getX();
-  destRect.y = 600 - position.getY();
+  destRect.y = 600 - position.getY() + 5;
 
-  SDL_RenderCopy(renderer, texture, NULL, &destRect);
-}
-
-
-void Player::deleteTexture(){
-    SDL_DestroyTexture(texture);
+  SDL_RenderCopy(renderer, playerTex, NULL, &destRect);
+  SDL_DestroyTexture(playerTex);
 }
