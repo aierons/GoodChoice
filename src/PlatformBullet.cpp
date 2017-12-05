@@ -29,6 +29,7 @@ void PlatformBullet::render(SDL_Renderer* renderer) {
 	SDL_RenderCopy(renderer, texture, NULL, &destRect);
 }
 
+
 bool PlatformBullet::collidesWithEnemy(Enemy& e) {
 	return e.collides(position);
 }
