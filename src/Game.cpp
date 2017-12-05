@@ -112,6 +112,7 @@ void Game::load() {
     if (levelCount > maxLevels) {
         levelCount = maxLevels;
     }
+	delete player;
     player = new Player();
     goal = levels[levelCount].goal;
     platforms = levels[levelCount].platforms;
@@ -239,12 +240,14 @@ void Game::updateEnemies(){
         if (flyingenemies[i].collides(player->position)){
             reset();
         }
-        for (int k = 0; k < eBullets.size(); k++) {
-            EnemyBullet bullet = eBullets.at(k);
-            if (flyingenemies[i].collides(bullet.getPosition())) {
-                flyingenemies.erase(flyingenemies.begin() + i);
-            }
-        }
+		else {
+			for (int k = 0; k < eBullets.size(); k++) {
+				EnemyBullet bullet = eBullets.at(k);
+				if (flyingenemies[i].collides(bullet.getPosition())) {
+					flyingenemies.erase(flyingenemies.begin() + i);
+				}
+			}
+		}
     }
     
 }
@@ -295,7 +298,9 @@ bool Game::ifEnemyGotHIt(int enemyIndex) {
     for (int k = 0; k < eBullets.size(); k++) {
         EnemyBullet bullet = eBullets.at(k);
         if (normalEnemies[enemyIndex].collides(bullet.getPosition())) {
-            toDelete.push_back(k);
+            //toDelete.push_back(k);
+			eBullets.erase(eBullets.begin() + k);
+			k--;
             gotHit = true;
         }
     }
@@ -344,7 +349,7 @@ void Game::ifHitClone(int enemyIndex) {
                 cloneEnemies.push_back(CloneEnemy(cloneEnemies[enemyIndex].platform, cloneEnemies[enemyIndex].getPostion(), !cloneEnemies[enemyIndex].facingRight()));
                 cloneEnemies[enemyIndex].hasCloned = true;
                 cloneEnemies[enemyIndex + 1].hasCloned = true;
-                //pBullets.erase(pBullets.begin() + k);
+                pBullets.erase(pBullets.begin() + k);
             }
         }
     }
@@ -353,7 +358,7 @@ void Game::ifHitClone(int enemyIndex) {
         EnemyBullet b = eBullets.at(j);
         if (cloneEnemies[enemyIndex].collides(b.getPosition())) {
             cloneEnemies.erase(cloneEnemies.begin() + enemyIndex);
-            //pBullets.erase(pBullets.begin() + j);
+            eBullets.erase(eBullets.begin() + j);
             break;
         }
     }
