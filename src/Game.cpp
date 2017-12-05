@@ -120,7 +120,7 @@ void Game::load() {
     normalEnemies = levels[levelCount].normalEnemies;
     flyingenemies = levels[levelCount].flyingenemies;
     cloneEnemies = levels[levelCount].cloneEnemies;
-    
+	Bullet::count = 0;
 }
 void Game::reset() {
     load();
