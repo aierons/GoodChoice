@@ -233,8 +233,8 @@ void Game::updateEnemies(){
     if (!cloneEnemies.empty()) {
         updateCloneEnemies();
     }
-    
-    for (int i  = 0; i < flyingenemies.size(); i++){
+
+    for (int i = 0; i < flyingenemies.size(); i++){
         flyingenemies[i].update(*player);
         
         if (flyingenemies[i].collides(player->position)){
@@ -247,6 +247,7 @@ void Game::updateEnemies(){
 					flyingenemies.erase(flyingenemies.begin() + i);
 					eBullets.erase(eBullets.begin() + k);
 					k--;
+					break;
 				}
 			}
 		}
