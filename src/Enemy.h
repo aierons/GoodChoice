@@ -12,11 +12,11 @@
 #define RIGHT true
 #define LEFT false
 
-// abstract class Enemy - will be extended by different types of enemy
 class Enemy {
 public:
     // Constructor
 	Enemy(Vector start, Vector end);
+    Enemy(Platform p, Vector spawn, bool d);
 	Enemy();
     
     void updateVelocity();
@@ -31,6 +31,7 @@ public:
 	Vector getPostion();
     
 protected:
+    Platform platform;
     Vector velocity;
     Vector acceleration;
     bool isFalling;
