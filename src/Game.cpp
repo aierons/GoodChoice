@@ -247,6 +247,7 @@ void Game::updateEnemies(){
 					flyingenemies.erase(flyingenemies.begin() + i);
 					eBullets.erase(eBullets.begin() + k);
 					k--;
+					Bullet::count--;
 					break;
 				}
 			}
@@ -304,6 +305,7 @@ bool Game::ifEnemyGotHIt(int enemyIndex) {
             //toDelete.push_back(k);
 			eBullets.erase(eBullets.begin() + k);
 			k--;
+			Bullet::count--;
             gotHit = true;
         }
     }
@@ -353,6 +355,7 @@ void Game::ifHitClone(int enemyIndex) {
                 cloneEnemies[enemyIndex].hasCloned = true;
                 cloneEnemies[enemyIndex + 1].hasCloned = true;
                 pBullets.erase(pBullets.begin() + k);
+				Bullet::count--;
             }
         }
     }
@@ -362,6 +365,7 @@ void Game::ifHitClone(int enemyIndex) {
         if (cloneEnemies[enemyIndex].collides(b.getPosition())) {
             cloneEnemies.erase(cloneEnemies.begin() + enemyIndex);
             eBullets.erase(eBullets.begin() + j);
+			Bullet::count--;
             break;
         }
     }
