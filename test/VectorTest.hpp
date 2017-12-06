@@ -1,5 +1,5 @@
 #include "Vector.hpp"
-#include  <iostream>
+#include <iostream>
 #include <cxxtest/TestSuite.h>
 
 class VectorTest : public CxxTest::TestSuite {
