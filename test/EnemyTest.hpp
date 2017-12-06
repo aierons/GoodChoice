@@ -1,9 +1,6 @@
 #include <cxxtest/TestSuite.h>
 #include <iostream>
 #include "Vector.hpp"
-#include <SDL.h>
-#include <SDL_image.h>
-#include <vector>
 #include "TextureManager.hpp"
 #include "KeysPressed.hpp"
 #include "Platform.hpp"
@@ -62,16 +59,6 @@ public:
       TS_ASSERT_EQUALS(e1.collides(collide), false);
     }
 
-    //testing if the enemy updates position appropriately
-    void EnemyUpdatePosition(void) {
-
-    }
-    
-    //testing if the enemy updates accordingly
-    void EnemyUpdate(void) {
-
-    }
-
     //testing if the enemy is facing RIGHT
     void EnemyFacingRight(void) {
       Vector v1 = new Vector(50, 50);
@@ -93,11 +80,4 @@ public:
       Enemy e1 = new Enemy(platform, spawn, true);
       TS_ASSERT_EQUALS(e1.getPosition(), spawn);
     }
-
-
-
-
-
-
-
 };
