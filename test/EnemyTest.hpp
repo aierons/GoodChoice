@@ -1,8 +1,6 @@
 #include <cxxtest/TestSuite.h>
 #include <iostream>
 #include "Vector.hpp"
-#include "TextureManager.hpp"
-#include "KeysPressed.hpp"
 #include "Platform.hpp"
 #include "Player.hpp"
 
