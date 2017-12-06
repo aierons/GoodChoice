@@ -5,6 +5,22 @@ Proposed Features Implemented:
   - Player can reveal hidden platforms with platform bullets
 
 Class Hierarchy:
+  - Main
+    - Game
+      - TextureManager
+      - KeysPressed
+      - Level
+      - Goal
+      - Vector
+      - Player
+      - Bullet
+        - PlatformBullet
+        - EnemyBullet
+      - Enemy
+        - NormalEnemy
+        - CloneEnemy
+        - InvincibleEnemy
+
 
 Dynamic Memory Management:
   - When rendering each game object, we always destroy the SDL texture between
