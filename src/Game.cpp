@@ -32,7 +32,7 @@ bool pressed = false;
 
 vector<Level> levels;
 int levelCount;
-const int maxLevels = 4;
+const int maxLevels = 5;
 const int bulletMax = 5;
 
 /*
@@ -116,12 +116,12 @@ Game::Game() {
     levels[2].goal = new Goal(Vector(50, 500));
 
 	//level 4
-	levels[3].platforms.push_back(Platform(Vector(150, 70), Vector(350, 90)));
-	levels[3].platforms.push_back(Platform(Vector(50, 170), Vector(250, 190)));
-	levels[3].platforms.push_back(Platform(Vector(250, 310), Vector(320, 330)));
+	levels[3].platforms.push_back(Platform(Vector(150, 50), Vector(350, 90)));
+	levels[3].platforms.push_back(Platform(Vector(50, 150), Vector(250, 190)));
+	levels[3].platforms.push_back(Platform(Vector(250, 290), Vector(320, 330)));
 	levels[3].platforms.push_back(Platform(Vector(470, 390), Vector(670, 450)));
 
-	levels[3].platforms.push_back(Platform(Vector(50, 310), Vector(220, 330), false));
+	levels[3].platforms.push_back(Platform(Vector(50, 290), Vector(220, 330), false));
 	levels[3].platforms.push_back(Platform(Vector(250, 420), Vector(350, 440), false));
 
 	levels[3].normalEnemies.push_back(NormalEnemy(levels[3].platforms[1], Vector(50, 200), true));
@@ -156,6 +156,21 @@ Game::Game() {
 	levels[4].platforms.push_back(Platform(Vector(125, 270), Vector(300, 300), false));
 
 	levels[4].goal = new Goal(Vector(700, 550));
+
+	//Level 6 / Win Screen
+	levels[5].platforms.push_back(Platform(Vector(90, 50), Vector(130, 280)));
+	levels[5].platforms.push_back(Platform(Vector(190, 50), Vector(230, 280)));
+	levels[5].platforms.push_back(Platform(Vector(290, 50), Vector(330, 280)));
+	levels[5].platforms.push_back(Platform(Vector(90, 50), Vector(330, 100)));
+
+	levels[5].platforms.push_back(Platform(Vector(390, 50), Vector(430, 230)));
+	levels[5].platforms.push_back(Platform(Vector(390, 230), Vector(430, 280)));
+
+	levels[5].platforms.push_back(Platform(Vector(490, 50), Vector(530, 280)));
+	levels[5].platforms.push_back(Platform(Vector(600, 50), Vector(640, 280)));
+	levels[5].platforms.push_back(Platform(Vector(490, 230), Vector(640, 280)));
+
+	levels[5].goal = new Goal(Vector(1000, 1000));
 
     load();
 }
