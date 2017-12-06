@@ -1,6 +1,7 @@
 #include <cxxtest/TestSuite.h>
 #include <iostream>
 #include "Goal.h"
+#include "Vector.hpp"
 
 class GoalTest : public CxxTest::TestSuite
 {
