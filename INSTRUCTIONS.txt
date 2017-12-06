@@ -9,6 +9,7 @@ Running The Project:
 Platform: The executable file will work on Windows.
 
 Running Tests:
+  Run Makefile in test folder
   
 Interacting With The Project:
   'A' and 'S' - move left or right
