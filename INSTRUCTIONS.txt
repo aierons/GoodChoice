@@ -2,7 +2,7 @@ Running The Project:
   Run 'CS3520 Final Project.exe'. The following must be in the same directory:
 	- res folder (with the game's images in it)
 	- SDL2.dll
-	- SDLw_image.dll
+	- SDL2_image.dll
 	- libpng16-16.dll
 	- zlib1.dll
   
