@@ -29,3 +29,4 @@ Dynamic Memory Management:
     bullet hits a platform or enemy, the bullet removes itself from the list.
   - Enemies in each level are also stored in the list. Once the enemy gets hit by
     a bullet, the enemy is removed from the list.
+  - In the destructor of the game, all goal flags and the player, which are created with new, are deleted.
