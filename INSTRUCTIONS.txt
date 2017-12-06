@@ -1,5 +1,10 @@
 Running The Project:
-  Run 'CS3520 Final Project.exe'.
+  Run 'CS3520 Final Project.exe'. The following must be in the same directory:
+	- res folder (with the game's images in it)
+	- SDL2.dll
+	- SDLw_image.dll
+	- libpng16-16.dll
+	- zlib1.dll
   
 Running Tests:
   
@@ -11,4 +16,17 @@ Interacting With The Project:
   'right click' - shoot platform bullets to reveal hidden platforms
   The bullets will go in the direction that the mouse was pointing
   
-  In each level, the player must reach the goal which is the yellow flag
+Instructions for interaction: Run the executable. The game will begin, and the controls are as follows:
+	W - Jump
+	A - Move Right
+	D - Move Left
+	Left Click - Shoot a bullet that defeats enemies
+	Right Click - Shoot a bullet that reveals platforms
+	Escape - Restart Level
+	Z, then X - Skip level
+	
+Useful Information: 
+Platinum Armor Enemies cannot be killed. 
+Wizard Enemies will clone themselves when they are hit with the wrong bullet.
+In each level, the player must reach the goal which is the yellow flag
+Bullets will move toward the mouse
