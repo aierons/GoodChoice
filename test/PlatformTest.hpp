@@ -1,5 +1,7 @@
 #include <cxxtest/TestSuite.h>
 #include <iostream>
+#include "Vector.hpp"
+#include "Platform.hpp"
 
 class PlatformTest : public CxxTest::TestSuite
 {
