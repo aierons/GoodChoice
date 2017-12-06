@@ -1,0 +1,16 @@
+Instructions:
+
+Instructions for building: Compile all of the .cpp files in the project, then run the corresponding file to main.cpp.
+
+Platform: The binary should run on any PC platform.
+
+Instructions for interaction: Run the executable. The game will begin, and the controls are as follows:
+	W - Jump
+	A - Move Right
+	D - Move Left
+	Left Click - Shoot a bullet that defeats enemies
+	Right Click - Shoot a bullet that reveals platforms
+	Escape - Restart Level
+	Z, then X - Skip level
+	
+Useful Information: Platinum Armor Enemies cannot be killed. Wizard Enemies will clone themselves when they are hit with the wrong bullet.
