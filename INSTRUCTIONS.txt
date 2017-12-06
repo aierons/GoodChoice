@@ -9,7 +9,7 @@ Running The Project:
 Platform: The executable file will work on Windows.
 
 Running Tests:
-  Run the test executable.
+  Create a text executable from the tests folder and execute it.
   
 Interacting With The Project:
   'A' and 'S' - move left or right
