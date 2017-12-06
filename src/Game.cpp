@@ -117,8 +117,20 @@ Game::Game() {
 
 	//level 4
 
-	levels[3].goal = new Goal(Vector(500, 500));
-    
+	levels[3].platforms.push_back(Platform(Vector(150, 70), Vector(350, 90)));
+	levels[3].platforms.push_back(Platform(Vector(50, 170), Vector(250, 190)));
+	levels[3].platforms.push_back(Platform(Vector(250, 310), Vector(320, 330)));
+	levels[3].platforms.push_back(Platform(Vector(470, 390), Vector(670, 450)));
+
+	levels[3].platforms.push_back(Platform(Vector(50, 310), Vector(220, 330), false));
+	levels[3].platforms.push_back(Platform(Vector(250, 420), Vector(350, 440), false));
+
+	levels[3].normalEnemies.push_back(NormalEnemy(levels[3].platforms[1], Vector(50, 200), true));
+
+	levels[3].invincibles.push_back(InvincibleEnemy(levels[3].platforms[1], Vector(250, 200), false));
+	levels[3].invincibles.push_back(InvincibleEnemy(levels[3].platforms[2], Vector(250, 340), true));
+
+	levels[3].goal = new Goal(Vector(600, 550));
     
     load();
 }
