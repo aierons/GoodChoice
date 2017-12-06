@@ -6,6 +6,8 @@ Running The Project:
 	- libpng16-16.dll
 	- zlib1.dll
   
+Platform: The executable file will work on Windows.
+
 Running Tests:
   
 Interacting With The Project:
