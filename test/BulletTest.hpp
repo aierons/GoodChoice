@@ -3,8 +3,6 @@
 #include "Vector.hpp"
 #include "Platform.hpp"
 #include "Enemy.h"
-#include "SDL.h"
-#include "SDL_image.h"
 
 #include <math.h>
 
