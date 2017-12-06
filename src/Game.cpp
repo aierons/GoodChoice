@@ -32,7 +32,7 @@ bool pressed = false;
 
 vector<Level> levels;
 int levelCount;
-const int maxLevels = 3;
+const int maxLevels = 4;
 const int bulletMax = 5;
 
 /*
@@ -116,7 +116,6 @@ Game::Game() {
     levels[2].goal = new Goal(Vector(50, 500));
 
 	//level 4
-
 	levels[3].platforms.push_back(Platform(Vector(150, 70), Vector(350, 90)));
 	levels[3].platforms.push_back(Platform(Vector(50, 170), Vector(250, 190)));
 	levels[3].platforms.push_back(Platform(Vector(250, 310), Vector(320, 330)));
@@ -131,7 +130,33 @@ Game::Game() {
 	levels[3].invincibles.push_back(InvincibleEnemy(levels[3].platforms[2], Vector(250, 340), true));
 
 	levels[3].goal = new Goal(Vector(600, 550));
-    
+
+	//level 5
+
+	levels[4].platforms.push_back(Platform(Vector(100, 50), Vector(600, 100)));
+
+	levels[4].platforms.push_back(Platform(Vector(250, 430), Vector(450, 460)));
+	levels[4].platforms.push_back(Platform(Vector(500, 430), Vector(650, 460)));
+	levels[4].platforms.push_back(Platform(Vector(50, 430), Vector(200, 460)));
+
+	levels[4].normalEnemies.push_back(NormalEnemy(levels[4].platforms[0], Vector(100, 100), true));
+	levels[4].normalEnemies.push_back(NormalEnemy(levels[4].platforms[0], Vector(600, 100), false));
+	levels[4].cloneEnemies.push_back(CloneEnemy(levels[4].platforms[0], Vector(150, 100), true));
+	levels[4].cloneEnemies.push_back(CloneEnemy(levels[4].platforms[0], Vector(550, 100), false));
+	levels[4].invincibles.push_back(InvincibleEnemy(levels[4].platforms[0], Vector(200, 100), false));
+	levels[4].invincibles.push_back(InvincibleEnemy(levels[4].platforms[0], Vector(500, 100), true));
+
+	levels[4].invincibles.push_back(InvincibleEnemy(levels[4].platforms[1], Vector(350, 470), true));
+	levels[4].cloneEnemies.push_back(CloneEnemy(levels[4].platforms[2], Vector(650, 470), false));
+	levels[4].normalEnemies.push_back(NormalEnemy(levels[4].platforms[3], Vector(50, 470), true));
+
+	levels[4].platforms.push_back(Platform(Vector(350, 200), Vector(575, 230), false));
+	levels[4].platforms.push_back(Platform(Vector(125, 200), Vector(300, 230), false));
+	levels[4].platforms.push_back(Platform(Vector(350, 270), Vector(575, 300), false));
+	levels[4].platforms.push_back(Platform(Vector(125, 270), Vector(300, 300), false));
+
+	levels[4].goal = new Goal(Vector(700, 550));
+
     load();
 }
 
