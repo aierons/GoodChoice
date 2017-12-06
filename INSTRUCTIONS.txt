@@ -9,7 +9,7 @@ Running The Project:
 Platform: The executable file will work on Windows.
 
 Running Tests:
-  Run Makefile in test folder
+  Run the test executable.
   
 Interacting With The Project:
   'A' and 'S' - move left or right
@@ -33,3 +33,4 @@ Platinum Armor Enemies cannot be killed.
 Wizard Enemies will clone themselves when they are hit with the wrong bullet.
 In each level, the player must reach the goal which is the yellow flag
 Bullets will move toward the mouse
+Video of our gameplay is in the PROJ-DEMO folder. You must follow the link since the video was too large to upload.
