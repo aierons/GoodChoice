@@ -7,7 +7,7 @@ Marcos Lopez <br />
 Wesley Jiang <br />
 Chris Risley
 
-This game utilizes the SDL2 library for graphics rendering and is written in C++. Control instructions can be found below and also in the INSTRUCTIONS.txt file. 
+This game utilizes the SDL2 library for graphics rendering and is written in C++. Control instructions can be found below and also in the INSTRUCTIONS.txt file
 
 # Instructions
 Running The Project:
@@ -18,10 +18,10 @@ Running The Project:
 	- libpng16-16.dll
 	- zlib1.dll
   
-Platform: The executable file will work on Windows.
+Platform: The executable file will work on Windows
 
 Running Tests:
-  Create a text executable from the tests folder and execute it.
+  Create a text executable from the tests folder and execute it
   
 Interacting With The Project:
   'A' and 'S' - move left or right
@@ -41,9 +41,9 @@ Instructions for interaction: Run the executable. The game will begin, and the c
 	Z, then X - Skip level
 	
 # Useful Information
-Platinum Armor Enemies cannot be killed. 
-Wizard Enemies will clone themselves when they are hit with the wrong bullet.
-In each level, the player must reach the goal which is the yellow flag.
+Platinum Armor Enemies cannot be killed <br />
+Wizard Enemies will clone themselves when they are hit with the wrong bullet <br />
+In each level, the player must reach the goal which is the yellow flag <br />
 Bullets will move toward the mouse.
 
 
